@@ -10,7 +10,7 @@ import CalendarEvents from '@/modules/common/icons/CalendarEvents.vue'
 </script>
 
 <template>
-  <aside class="bg-gray-800 w-72 h-[100vh]">
+  <aside class="bg-gray-800 min-w-72 h-[100vh] hidden lg:inline">
     <div class="space-y-4 my-4">
       <h2 class="text-xl font-bold text-center">
         <router-link to="/">TODOApp</router-link>

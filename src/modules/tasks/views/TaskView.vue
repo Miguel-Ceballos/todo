@@ -3,166 +3,197 @@
 </script>
 
 <template>
-<div class="overflow-x-auto w-full">
-  <div class="overflow-x-auto">
-    <table class="table">
-      <!-- head -->
-      <thead>
-      <tr>
-        <th>
-          <label>
-            <input type="checkbox" class="checkbox" />
-          </label>
-        </th>
-        <th>Name</th>
-        <th>Job</th>
-        <th>Favorite Color</th>
-        <th></th>
-      </tr>
-      </thead>
-      <tbody>
-      <!-- row 1 -->
-      <tr>
-        <th>
-          <label>
-            <input type="checkbox" class="checkbox" />
-          </label>
-        </th>
-        <td>
-          <div class="flex items-center gap-3">
-            <div class="avatar">
-              <div class="mask mask-squircle h-12 w-12">
-                <img
-                  src="https://img.daisyui.com/images/profile/demo/2@94.webp"
-                  alt="Avatar Tailwind CSS Component" />
+  <div class="max-w-4xl overflow-x-hidden px-10 lg:mx-auto my-6 sm:my-16">
+    <div class="space-y-6">
+      <div>
+        <h2 class="text-2xl text-gray-300 md:text-3xl font-bold">Tasks</h2>
+      </div>
+
+      <ul class="space-y-2">
+        <li class="border-b border-gray-700">
+          <div class="flex w-full space-x-2">
+            <div class="mt-1">
+              <input type="checkbox" class="checkbox checkbox-primary rounded-full checkbox-sm" />
+            </div>
+            <div class="overflow-hidden">
+              <div class="flex flex-col">
+                <h3 class="text-gray-200 text-sm mb-1">Lorem ipsum dolor sit amet, consectetur.</h3>
+                <p class="truncate text-xs">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
+                  aspernatur consequuntur distinctio dolorum eius fugit id illum modi nostrum quisquam tempora,
+                  voluptatibus. Ad cum cumque enim obcaecati odio quisquam voluptate.
+                </p>
+              </div>
+              <div class="flex justify-end">
+                <button class="btn btn-ghost btn-xs justify-end">#Home</button>
               </div>
             </div>
-            <div>
-              <div class="font-bold">Hart Hagerty</div>
-              <div class="text-sm opacity-50">United States</div>
-            </div>
           </div>
-        </td>
-        <td>
-          Zemlak, Daniel and Leannon
-          <br />
-          <span class="badge badge-ghost badge-sm">Desktop Support Technician</span>
-        </td>
-        <td>Purple</td>
-        <th>
-          <button class="btn btn-ghost btn-xs">details</button>
-        </th>
-      </tr>
-      <!-- row 2 -->
-      <tr>
-        <th>
-          <label>
-            <input type="checkbox" class="checkbox" />
-          </label>
-        </th>
-        <td>
-          <div class="flex items-center gap-3">
-            <div class="avatar">
-              <div class="mask mask-squircle h-12 w-12">
-                <img
-                  src="https://img.daisyui.com/images/profile/demo/3@94.webp"
-                  alt="Avatar Tailwind CSS Component" />
+        </li>
+        <li class="border-b border-gray-700">
+          <div class="flex w-full space-x-2">
+            <div class="mt-1">
+              <input type="checkbox" class="checkbox checkbox-primary rounded-full checkbox-sm" />
+            </div>
+            <div class="overflow-hidden">
+              <div class="flex flex-col">
+                <h3 class="text-gray-200 text-sm mb-1">Lorem ipsum dolor sit amet, consectetur.</h3>
+                <p class="truncate text-xs">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
+                  aspernatur consequuntur distinctio dolorum eius fugit id illum modi nostrum quisquam tempora,
+                  voluptatibus. Ad cum cumque enim obcaecati odio quisquam voluptate.
+                </p>
+              </div>
+              <div class="flex justify-end">
+                <button class="btn btn-ghost btn-xs justify-end">#Home</button>
               </div>
             </div>
-            <div>
-              <div class="font-bold">Brice Swyre</div>
-              <div class="text-sm opacity-50">China</div>
-            </div>
           </div>
-        </td>
-        <td>
-          Carroll Group
-          <br />
-          <span class="badge badge-ghost badge-sm">Tax Accountant</span>
-        </td>
-        <td>Red</td>
-        <th>
-          <button class="btn btn-ghost btn-xs">details</button>
-        </th>
-      </tr>
-      <!-- row 3 -->
-      <tr>
-        <th>
-          <label>
-            <input type="checkbox" class="checkbox" />
-          </label>
-        </th>
-        <td>
-          <div class="flex items-center gap-3">
-            <div class="avatar">
-              <div class="mask mask-squircle h-12 w-12">
-                <img
-                  src="https://img.daisyui.com/images/profile/demo/4@94.webp"
-                  alt="Avatar Tailwind CSS Component" />
+        </li>
+        <li class="border-b border-gray-700">
+          <div class="flex w-full space-x-2">
+            <div class="mt-1">
+              <input type="checkbox" class="checkbox checkbox-primary rounded-full checkbox-sm" />
+            </div>
+            <div class="overflow-hidden">
+              <div class="flex flex-col">
+                <h3 class="text-gray-200 text-sm mb-1">Lorem ipsum dolor sit amet, consectetur.</h3>
+                <p class="truncate text-xs">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
+                  aspernatur consequuntur distinctio dolorum eius fugit id illum modi nostrum quisquam tempora,
+                  voluptatibus. Ad cum cumque enim obcaecati odio quisquam voluptate.
+                </p>
+              </div>
+              <div class="flex justify-end">
+                <button class="btn btn-ghost btn-xs justify-end">#Home</button>
               </div>
             </div>
-            <div>
-              <div class="font-bold">Marjy Ferencz</div>
-              <div class="text-sm opacity-50">Russia</div>
-            </div>
           </div>
-        </td>
-        <td>
-          Rowe-Schoen
-          <br />
-          <span class="badge badge-ghost badge-sm">Office Assistant I</span>
-        </td>
-        <td>Crimson</td>
-        <th>
-          <button class="btn btn-ghost btn-xs">details</button>
-        </th>
-      </tr>
-      <!-- row 4 -->
-      <tr>
-        <th>
-          <label>
-            <input type="checkbox" class="checkbox" />
-          </label>
-        </th>
-        <td>
-          <div class="flex items-center gap-3">
-            <div class="avatar">
-              <div class="mask mask-squircle h-12 w-12">
-                <img
-                  src="https://img.daisyui.com/images/profile/demo/5@94.webp"
-                  alt="Avatar Tailwind CSS Component" />
+        </li>
+        <li class="border-b border-gray-700">
+          <div class="flex w-full space-x-2">
+            <div class="mt-1">
+              <input type="checkbox" class="checkbox checkbox-primary rounded-full checkbox-sm" />
+            </div>
+            <div class="overflow-hidden">
+              <div class="flex flex-col">
+                <h3 class="text-gray-200 text-sm mb-1">Lorem ipsum dolor sit amet, consectetur.</h3>
+                <p class="truncate text-xs">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
+                  aspernatur consequuntur distinctio dolorum eius fugit id illum modi nostrum quisquam tempora,
+                  voluptatibus. Ad cum cumque enim obcaecati odio quisquam voluptate.
+                </p>
+              </div>
+              <div class="flex justify-end">
+                <button class="btn btn-ghost btn-xs justify-end">#Home</button>
               </div>
             </div>
-            <div>
-              <div class="font-bold">Yancy Tear</div>
-              <div class="text-sm opacity-50">Brazil</div>
+          </div>
+        </li>
+        <li class="border-b border-gray-700">
+          <div class="flex w-full space-x-2">
+            <div class="mt-1">
+              <input type="checkbox" class="checkbox checkbox-primary rounded-full checkbox-sm" />
+            </div>
+            <div class="overflow-hidden">
+              <div class="flex flex-col">
+                <h3 class="text-gray-200 text-sm mb-1">Lorem ipsum dolor sit amet, consectetur.</h3>
+                <p class="truncate text-xs">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
+                  aspernatur consequuntur distinctio dolorum eius fugit id illum modi nostrum quisquam tempora,
+                  voluptatibus. Ad cum cumque enim obcaecati odio quisquam voluptate.
+                </p>
+              </div>
+              <div class="flex justify-end">
+                <button class="btn btn-ghost btn-xs justify-end">#Home</button>
+              </div>
             </div>
           </div>
-        </td>
-        <td>
-          Wyman-Ledner
-          <br />
-          <span class="badge badge-ghost badge-sm">Community Outreach Specialist</span>
-        </td>
-        <td>Indigo</td>
-        <th>
-          <button class="btn btn-ghost btn-xs">details</button>
-        </th>
-      </tr>
-      </tbody>
-      <!-- foot -->
-      <tfoot>
-      <tr>
-        <th></th>
-        <th>Name</th>
-        <th>Job</th>
-        <th>Favorite Color</th>
-        <th></th>
-      </tr>
-      </tfoot>
-    </table>
+        </li>
+        <li class="border-b border-gray-700">
+          <div class="flex w-full space-x-2">
+            <div class="mt-1">
+              <input type="checkbox" class="checkbox checkbox-primary rounded-full checkbox-sm" />
+            </div>
+            <div class="overflow-hidden">
+              <div class="flex flex-col">
+                <h3 class="text-gray-200 text-sm mb-1">Lorem ipsum dolor sit amet, consectetur.</h3>
+                <p class="truncate text-xs">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
+                  aspernatur consequuntur distinctio dolorum eius fugit id illum modi nostrum quisquam tempora,
+                  voluptatibus. Ad cum cumque enim obcaecati odio quisquam voluptate.
+                </p>
+              </div>
+              <div class="flex justify-end">
+                <button class="btn btn-ghost btn-xs justify-end">#Home</button>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="border-b border-gray-700">
+          <div class="flex w-full space-x-2">
+            <div class="mt-1">
+              <input type="checkbox" class="checkbox checkbox-primary rounded-full checkbox-sm" />
+            </div>
+            <div class="overflow-hidden">
+              <div class="flex flex-col">
+                <h3 class="text-gray-200 text-sm mb-1">Lorem ipsum dolor sit amet, consectetur.</h3>
+                <p class="truncate text-xs">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
+                  aspernatur consequuntur distinctio dolorum eius fugit id illum modi nostrum quisquam tempora,
+                  voluptatibus. Ad cum cumque enim obcaecati odio quisquam voluptate.
+                </p>
+              </div>
+              <div class="flex justify-end">
+                <button class="btn btn-ghost btn-xs justify-end">#Home</button>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="border-b border-gray-700">
+          <div class="flex w-full space-x-2">
+            <div class="mt-1">
+              <input type="checkbox" class="checkbox checkbox-primary rounded-full checkbox-sm" />
+            </div>
+            <div class="overflow-hidden">
+              <div class="flex flex-col">
+                <h3 class="text-gray-200 text-sm mb-1">Lorem ipsum dolor sit amet, consectetur.</h3>
+                <p class="truncate text-xs">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
+                  aspernatur consequuntur distinctio dolorum eius fugit id illum modi nostrum quisquam tempora,
+                  voluptatibus. Ad cum cumque enim obcaecati odio quisquam voluptate.
+                </p>
+              </div>
+              <div class="flex justify-end">
+                <button class="btn btn-ghost btn-xs justify-end">#Home</button>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="border-b border-gray-700">
+          <div class="flex w-full space-x-2">
+            <div class="mt-1">
+              <input type="checkbox" class="checkbox checkbox-primary rounded-full checkbox-sm" />
+            </div>
+            <div class="overflow-hidden">
+              <div class="flex flex-col">
+                <h3 class="text-gray-200 text-sm mb-1">Lorem ipsum dolor sit amet, consectetssdur.</h3>
+                <p class="truncate text-xs">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
+                  aspernatur consequuntur distinctio dolorum eius fugit id illum modi nostrum quisquam tempora,
+                  voluptatibus. Ad cum cumque enim obcaecati odio quisquam voluptate.
+                </p>
+              </div>
+              <div class="flex justify-end">
+                <button class="btn btn-ghost btn-xs justify-end">#Home</button>
+              </div>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+    </div>
   </div>
-</div>
 </template>
 
 <style scoped>
