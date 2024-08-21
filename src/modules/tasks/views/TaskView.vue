@@ -1,5 +1,16 @@
 <script setup lang="ts">
 
+import CreateButton from '@/modules/common/components/CreateButton.vue'
+import Modal from '@/modules/common/components/Modal.vue'
+import { ref } from 'vue'
+
+const oModal = ref(false)
+
+const handleClickModal = () => {
+  oModal.value = !oModal.value
+}
+
+
 </script>
 
 <template>
@@ -8,7 +19,10 @@
       <div>
         <h2 class="text-2xl text-gray-300 md:text-3xl font-bold">Tasks</h2>
       </div>
-
+      <div>
+        <create-button @click="handleClickModal" text="New Task" />
+        <modal :open="oModal" @handle-click-modal="handleClickModal"/>
+      </div>
       <ul class="space-y-2">
         <li class="border-b border-gray-700">
           <div class="flex w-full space-x-2">
