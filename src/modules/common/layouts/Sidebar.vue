@@ -19,12 +19,12 @@ import HashtagIcon from '@/modules/common/icons/HashtagIcon.vue'
     </div>
     <ul class="menu">
       <li class="hover:bg-zincs-800 hover:rounded-md group"><create-button text="New" /></li>
-      <li class="hover:bg-zincs-800 hover:rounded-md"><a class="text-gray-400 hover:text-gray-100"><list-bullet-icon />Tasks</a></li>
-      <li class="hover:bg-zincs-800 hover:rounded-md"><a class="text-gray-400 hover:text-gray-100"><calendar-icon />Today</a></li>
-      <li class="hover:bg-zincs-800 hover:rounded-md"><a class="text-gray-400 hover:text-gray-100"><calendar-days-icon />Upcoming</a></li>
-      <li class="hover:bg-zincs-800 hover:rounded-md"><a class="text-gray-400 hover:text-gray-100"><calendar-events />Events</a></li>
-      <li class="hover:bg-zincs-800 hover:rounded-md"><a class="text-gray-400 hover:text-gray-100"><check-circle-icon />Completed</a></li>
-      <li class="hover:bg-zincs-800 hover:rounded-md"><a class="text-gray-400 hover:text-gray-100"><goals-icon />Goals</a></li>
+      <li class="hover:bg-zincs-800 hover:rounded-md"><a class="text-gray-400 hover:text-gray-100"><list-bullet-icon size="6"/>Tasks</a></li>
+      <li class="hover:bg-zincs-800 hover:rounded-md"><a class="text-gray-400 hover:text-gray-100"><calendar-icon size="6"/>Today</a></li>
+      <li class="hover:bg-zincs-800 hover:rounded-md"><a class="text-gray-400 hover:text-gray-100"><calendar-days-icon size="6"/>Upcoming</a></li>
+      <li class="hover:bg-zincs-800 hover:rounded-md"><a class="text-gray-400 hover:text-gray-100"><calendar-events size="6"/>Events</a></li>
+      <li class="hover:bg-zincs-800 hover:rounded-md"><a class="text-gray-400 hover:text-gray-100"><check-circle-icon size="6"/>Completed</a></li>
+      <li class="hover:bg-zincs-800 hover:rounded-md"><a class="text-gray-400 hover:text-gray-100"><goals-icon size="6"/>Goals</a></li>
     </ul>
     <ul class="menu">
       <li class="menu-title"><a>Categories</a></li>

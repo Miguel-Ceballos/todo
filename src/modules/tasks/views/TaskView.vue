@@ -3,7 +3,6 @@
 import CreateButton from '@/modules/common/components/CreateButton.vue'
 import Modal from '@/modules/common/components/Modal.vue'
 import { ref } from 'vue'
-import CheckedIcon from '@/modules/common/icons/CheckedIcon.vue'
 import CheckCircleIcon from '@/modules/common/icons/CheckCircleIcon.vue'
 
 const oModal = ref(false)
@@ -23,7 +22,7 @@ const handleClickModal = () => {
         <div class="flex space-x-4 justify-between items-end">
           <h2 class="text-2xl text-gray-300 md:text-3xl font-bold">Tasks</h2>
           <p class="text-sm pr-4 flex justify-center items-center gap-1">
-            <check-circle-icon />
+            <check-circle-icon size="5"/>
             4 Tasks
           </p>
         </div>
