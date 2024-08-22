@@ -1,21 +1,18 @@
 <script setup lang="ts">
 
-import CreateButton from '@/modules/common/components/CreateButton.vue'
-import Modal from '@/modules/common/components/Modal.vue'
 import CheckCircleIcon from '@/modules/common/icons/CheckCircleIcon.vue'
 import TaskForm from '@/modules/tasks/components/TaskForm.vue'
 
 </script>
 
 <template>
-<!--  <div class="bg-[#171C28]  w-full h-screen">-->
   <div class="bg-[#171C28]  w-full h-screen">
     <div class="max-w-4xl overflow-x-hidden px-10 lg:mx-auto my-6 sm:my-16">
       <div class="space-y-6">
         <div class="flex space-x-4 justify-between items-end">
           <h2 class="text-2xl text-gray-300 md:text-3xl font-bold">Tasks</h2>
           <p class="text-sm pr-4 flex justify-center items-center gap-1">
-            <check-circle-icon size="5"/>
+            <check-circle-icon size="5" />
             4 Tasks
           </p>
         </div>
@@ -23,7 +20,8 @@ import TaskForm from '@/modules/tasks/components/TaskForm.vue'
           <task-form />
         </div>
         <ul>
-          <li class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 py-2 rounded-t-md">
+          <li
+            class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 py-2 rounded-t-md">
             <div class="flex w-full space-x-2">
               <div class="mt-1">
                 <input type="checkbox" class="checkbox checkbox-primary rounded-full checkbox-sm hover:border-2" />
@@ -43,7 +41,8 @@ import TaskForm from '@/modules/tasks/components/TaskForm.vue'
               </div>
             </div>
           </li>
-          <li class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 py-2 rounded-t-md">
+          <li
+            class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 py-2 rounded-t-md">
             <div class="flex w-full space-x-2">
               <div class="mt-1">
                 <input type="checkbox" class="checkbox checkbox-primary rounded-full checkbox-sm hover:border-2" />
@@ -63,7 +62,8 @@ import TaskForm from '@/modules/tasks/components/TaskForm.vue'
               </div>
             </div>
           </li>
-          <li class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 py-2 rounded-t-md">
+          <li
+            class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 py-2 rounded-t-md">
             <div class="flex w-full space-x-2">
               <div class="mt-1">
                 <input type="checkbox" class="checkbox checkbox-primary rounded-full checkbox-sm hover:border-2" />
@@ -83,7 +83,8 @@ import TaskForm from '@/modules/tasks/components/TaskForm.vue'
               </div>
             </div>
           </li>
-          <li class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 py-2 rounded-t-md">
+          <li
+            class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 py-2 rounded-t-md">
             <div class="flex w-full space-x-2">
               <div class="mt-1">
                 <input type="checkbox" class="checkbox checkbox-primary rounded-full checkbox-sm hover:border-2" />
@@ -103,7 +104,8 @@ import TaskForm from '@/modules/tasks/components/TaskForm.vue'
               </div>
             </div>
           </li>
-          <li class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 py-2 rounded-t-md">
+          <li
+            class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 py-2 rounded-t-md">
             <div class="flex w-full space-x-2">
               <div class="mt-1">
                 <input type="checkbox" class="checkbox checkbox-primary rounded-full checkbox-sm hover:border-2" />
@@ -123,7 +125,8 @@ import TaskForm from '@/modules/tasks/components/TaskForm.vue'
               </div>
             </div>
           </li>
-          <li class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 py-2 rounded-t-md">
+          <li
+            class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 py-2 rounded-t-md">
             <div class="flex w-full space-x-2">
               <div class="mt-1">
                 <input type="checkbox" class="checkbox checkbox-primary rounded-full checkbox-sm hover:border-2" />
@@ -143,7 +146,8 @@ import TaskForm from '@/modules/tasks/components/TaskForm.vue'
               </div>
             </div>
           </li>
-          <li class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 py-2 rounded-t-md">
+          <li
+            class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 py-2 rounded-t-md">
             <div class="flex w-full space-x-2">
               <div class="mt-1">
                 <input type="checkbox" class="checkbox checkbox-primary rounded-full checkbox-sm hover:border-2" />
@@ -163,7 +167,8 @@ import TaskForm from '@/modules/tasks/components/TaskForm.vue'
               </div>
             </div>
           </li>
-          <li class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 py-2 rounded-t-md">
+          <li
+            class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 py-2 rounded-t-md">
             <div class="flex w-full space-x-2">
               <div class="mt-1">
                 <input type="checkbox" class="checkbox checkbox-primary rounded-full checkbox-sm hover:border-2" />
