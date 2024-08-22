@@ -2,15 +2,8 @@
 
 import CreateButton from '@/modules/common/components/CreateButton.vue'
 import Modal from '@/modules/common/components/Modal.vue'
-import { ref } from 'vue'
 import CheckCircleIcon from '@/modules/common/icons/CheckCircleIcon.vue'
-
-const oModal = ref(false)
-
-const handleClickModal = () => {
-  oModal.value = !oModal.value
-}
-
+import TaskForm from '@/modules/tasks/components/TaskForm.vue'
 
 </script>
 
@@ -27,8 +20,7 @@ const handleClickModal = () => {
           </p>
         </div>
         <div>
-          <create-button @click="handleClickModal" text="New Task" />
-          <modal :open="oModal" @handle-click-modal="handleClickModal" />
+          <task-form />
         </div>
         <ul>
           <li class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 py-2 rounded-t-md">

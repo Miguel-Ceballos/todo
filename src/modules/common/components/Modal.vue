@@ -9,10 +9,6 @@ withDefaults(defineProps<Props>(), {
 
 defineEmits(['handle-click-modal'])
 
-// const emits = defineEmits<{
-//   close: [void]
-// }>()
-
 </script>
 
 <template>
@@ -23,34 +19,10 @@ defineEmits(['handle-click-modal'])
       <h3 class="text-xl font-bold mb-2">New Task</h3>
       <div class="w-full">
         <form method="dialog" class="space-y-4">
-          <div class="space-y-1">
-            <span class="label-text">Title</span>
-            <input
-              type="text"
-              placeholder="Type here"
-              class="input input-bordered input-accent w-full"
-            />
-          </div>
-          <div class="space-y-1">
-            <span class="label-text">Description</span>
-            <input
-              type="text"
-              placeholder="Type here"
-              class="input input-bordered input-accent w-full"
-            />
-          </div>
-          <div class="space-y-1">
-            <span class="label-text">Category</span>
-            <select class="select select-accent w-full">
-              <option disabled selected>Dark mode or light mode?</option>
-              <option>Auto</option>
-              <option>Dark mode</option>
-              <option>Light mode</option>
-            </select>
-          </div>
+          <slot name="form" />
           <div class="flex justify-end space-x-4">
             <button class="btn btn-neutral" @click="$emit('handle-click-modal')">Close</button>
-            <button class="btn btn-accent" @click="">Save</button>
+            <slot name="actions" />
           </div>
         </form>
       </div>
