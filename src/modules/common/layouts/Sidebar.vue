@@ -10,20 +10,20 @@ import CalendarEvents from '@/modules/common/icons/CalendarEvents.vue'
 </script>
 
 <template>
-  <aside class="bg-gray-800 min-w-72 h-[100vh] hidden lg:inline">
+  <aside class="bg-[#121621] min-w-72 h-[100vh] hidden lg:inline">
     <div class="space-y-4 my-4">
       <h2 class="text-xl font-bold text-center">
         <router-link to="/">TODOApp</router-link>
       </h2>
     </div>
     <ul class="menu">
-      <li><create-button text="New Category" /></li>
-      <li><a><list-bullet-icon />Tasks</a></li>
-      <li><a><calendar-icon />Today</a></li>
-      <li><a><calendar-days-icon />Upcoming</a></li>
-      <li><a><calendar-events />Events</a></li>
-      <li><a><check-circle-icon />Completed</a></li>
-      <li><a><goals-icon />Goals</a></li>
+      <li class="hover:bg-gray-700 hover:rounded-md"><create-button text="New Category" /></li>
+      <li class="hover:bg-gray-700 hover:rounded-md"><a class="text-gray-300"><list-bullet-icon />Tasks</a></li>
+      <li class="hover:bg-gray-700 hover:rounded-md"><a class="text-gray-300"><calendar-icon />Today</a></li>
+      <li class="hover:bg-gray-700 hover:rounded-md"><a class="text-gray-300"><calendar-days-icon />Upcoming</a></li>
+      <li class="hover:bg-gray-700 hover:rounded-md"><a class="text-gray-300"><calendar-events />Events</a></li>
+      <li class="hover:bg-gray-700 hover:rounded-md"><a class="text-gray-300"><check-circle-icon />Completed</a></li>
+      <li class="hover:bg-gray-700 hover:rounded-md"><a class="text-gray-300"><goals-icon />Goals</a></li>
     </ul>
     <ul class="menu">
       <li class="menu-title"><a>Categories</a></li>

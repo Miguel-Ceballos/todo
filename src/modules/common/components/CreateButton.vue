@@ -14,7 +14,7 @@ defineProps({
   <div class="">
     <button class="flex group gap-2">
       <plus-icon />
-      <p class="group-hover:text-accent">{{ text }}</p>
+      <p class="text-accent font-bold">{{ text }}</p>
     </button>
   </div>
 </template>

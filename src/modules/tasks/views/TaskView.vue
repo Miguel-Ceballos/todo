@@ -14,53 +14,140 @@ const handleClickModal = () => {
 </script>
 
 <template>
-  <div class="max-w-4xl overflow-x-hidden px-10 lg:mx-auto my-6 sm:my-16">
-    <div class="space-y-6">
-      <div>
-        <h2 class="text-2xl text-gray-300 md:text-3xl font-bold">Tasks</h2>
+  <div class="bg-[#171C28]  w-full h-screen">
+    <div class="max-w-4xl overflow-x-hidden px-10 lg:mx-auto my-6 sm:my-16">
+      <div class="space-y-6">
+        <div class="flex space-x-4 justify-between items-end">
+          <h2 class="text-2xl text-gray-300 md:text-3xl font-bold">Tasks</h2>
+          <p class="text-sm pr-4">4 Tasks</p>
+        </div>
+        <div>
+          <create-button @click="handleClickModal" text="New Task" />
+          <modal :open="oModal" @handle-click-modal="handleClickModal" />
+        </div>
+        <ul>
+          <li class="border-b hover:scale-[1.003] border-gray-700 hover:cursor-pointer hover:dark:bg-gray-800 px-1 py-2 rounded-md">
+            <div class="flex w-full space-x-2">
+              <div class="mt-1">
+                <input type="checkbox" class="checkbox checkbox-primary rounded-full checkbox-sm" />
+              </div>
+              <div class="w-full overflow-hidden">
+                <div class="flex flex-col">
+                  <h3 class="text-gray-200 text-sm mb-1">Lorem ipsum dolor sit amet, consectetur.</h3>
+                  <p class="truncate text-xs">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
+                    aspernatur consequuntur distinctio dolorum eius fugit id illum modi nostrum quisquam tempora,
+                    voluptatibus. Ad cum cumque enim obcaecati odio quisquam voluptate.
+                  </p>
+                </div>
+                <div class="flex justify-end">
+                  <button class="btn btn-ghost btn-xs justify-end">#Home</button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="border-b hover:scale-[1.003] border-gray-700 hover:cursor-pointer hover:dark:bg-gray-800 px-1 py-2 rounded-md">
+            <div class="flex w-full space-x-2">
+              <div class="mt-1">
+                <input type="checkbox" class="checkbox checkbox-primary rounded-full checkbox-sm" />
+              </div>
+              <div class="w-full overflow-hidden">
+                <div class="flex flex-col">
+                  <h3 class="text-gray-200 text-sm mb-1">Lorem ipsum dolor sit amet, consectetur.</h3>
+                  <p class="truncate text-xs">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
+                    aspernatur consequuntur distinctio dolorum eius fugit id illum modi nostrum quisquam tempora,
+                    voluptatibus. Ad cum cumque enim obcaecati odio quisquam voluptate.
+                  </p>
+                </div>
+                <div class="flex justify-end">
+                  <button class="btn btn-ghost btn-xs justify-end">#Home</button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="border-b hover:scale-[1.003] border-gray-700 hover:cursor-pointer hover:dark:bg-gray-800 px-1 py-2 rounded-md">
+            <div class="flex w-full space-x-2">
+              <div class="mt-1">
+                <input type="checkbox" class="checkbox checkbox-primary rounded-full checkbox-sm" />
+              </div>
+              <div class="w-full overflow-hidden">
+                <div class="flex flex-col">
+                  <h3 class="text-gray-200 text-sm mb-1">Lorem ipsum dolor sit amet, consectetur.</h3>
+                  <p class="truncate text-xs">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
+                    aspernatur consequuntur distinctio dolorum eius fugit id illum modi nostrum quisquam tempora,
+                    voluptatibus. Ad cum cumque enim obcaecati odio quisquam voluptate.
+                  </p>
+                </div>
+                <div class="flex justify-end">
+                  <button class="btn btn-ghost btn-xs justify-end">#Home</button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="border-b hover:scale-[1.003] border-gray-700 hover:cursor-pointer hover:dark:bg-gray-800 px-1 py-2 rounded-md">
+            <div class="flex w-full space-x-2">
+              <div class="mt-1">
+                <input type="checkbox" class="checkbox checkbox-primary rounded-full checkbox-sm" />
+              </div>
+              <div class="w-full overflow-hidden">
+                <div class="flex flex-col">
+                  <h3 class="text-gray-200 text-sm mb-1">Lorem ipsum dolor sit amet, consectetur.</h3>
+                  <p class="truncate text-xs">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
+                    aspernatur consequuntur distinctio dolorum eius fugit id illum modi nostrum quisquam tempora,
+                    voluptatibus. Ad cum cumque enim obcaecati odio quisquam voluptate.
+                  </p>
+                </div>
+                <div class="flex justify-end">
+                  <button class="btn btn-ghost btn-xs justify-end">#Home</button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="border-b hover:scale-[1.003] border-gray-700 hover:cursor-pointer hover:dark:bg-gray-800 px-1 py-2 rounded-md">
+            <div class="flex w-full space-x-2">
+              <div class="mt-1">
+                <input type="checkbox" class="checkbox checkbox-primary rounded-full checkbox-sm" />
+              </div>
+              <div class="w-full overflow-hidden">
+                <div class="flex flex-col">
+                  <h3 class="text-gray-200 text-sm mb-1">Lorem ipsum dolor sit amet, consectetur.</h3>
+                  <p class="truncate text-xs">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
+                    aspernatur consequuntur distinctio dolorum eius fugit id illum modi nostrum quisquam tempora,
+                    voluptatibus. Ad cum cumque enim obcaecati odio quisquam voluptate.
+                  </p>
+                </div>
+                <div class="flex justify-end">
+                  <button class="btn btn-ghost btn-xs justify-end">#Home</button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="border-b hover:scale-[1.003] border-gray-700 hover:cursor-pointer hover:dark:bg-gray-800 px-1 py-2 rounded-md">
+            <div class="flex w-full space-x-2">
+              <div class="mt-1">
+                <input type="checkbox" class="checkbox checkbox-primary rounded-full checkbox-sm" />
+              </div>
+              <div class="w-full overflow-hidden">
+                <div class="flex flex-col">
+                  <h3 class="text-gray-200 text-sm mb-1">Lorem ipsum dolor sit amet, consectetur.</h3>
+                  <p class="truncate text-xs">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
+                    aspernatur consequuntur distinctio dolorum eius fugit id illum modi nostrum quisquam tempora,
+                    voluptatibus. Ad cum cumque enim obcaecati odio quisquam voluptate.
+                  </p>
+                </div>
+                <div class="flex justify-end">
+                  <button class="btn btn-ghost btn-xs justify-end">#Home</button>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
-      <div>
-        <create-button @click="handleClickModal" text="New Task" />
-        <modal :open="oModal" @handle-click-modal="handleClickModal"/>
-      </div>
-      <ul class="space-y-2">
-        <li class="border-b border-gray-700">
-          <div class="flex w-full space-x-2">
-            <div class="mt-1">
-              <input type="checkbox" class="checkbox checkbox-primary rounded-full checkbox-sm" />
-            </div>
-            <div class="w-full overflow-hidden">
-              <div class="flex flex-col">
-                <h3 class="text-gray-200 text-sm mb-1">Lorem ipsum dolor sit amet, consectetur.</h3>
-                <p class="truncate text-xs">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
-                  aspernatur consequuntur distinctio dolorum eius fugit id illum modi nostrum quisquam tempora,
-                  voluptatibus. Ad cum cumque enim obcaecati odio quisquam voluptate.
-                </p>
-              </div>
-              <div class="flex justify-end">
-                <button class="btn btn-ghost btn-xs justify-end">#Home</button>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li class="border-b border-gray-700">
-          <div class="flex w-full space-x-2">
-            <div class="mt-1">
-              <input type="checkbox" class="checkbox checkbox-primary rounded-full checkbox-sm" />
-            </div>
-            <div class="w-full overflow-hidden">
-              <div class="flex flex-col">
-                <h3 class="text-gray-200 text-sm mb-1">Lorem ipsum dolor sit amet, consectetur.</h3>
-                <p class="text-xs hidden"></p>
-              </div>
-              <div class="flex w-full justify-end">
-                <button class="btn btn-ghost btn-xs justify-end">#Home</button>
-              </div>
-            </div>
-          </div>
-        </li>
-      </ul>
     </div>
   </div>
 </template>
