@@ -1,11 +1,10 @@
 <script setup lang="ts">
-
-import Sidebar from '@/modules/common/layouts/Sidebar.vue'
+import Sidebar from '@/modules/common/layouts/Sidebar.vue';
 </script>
 
 <template>
   <div>
-    <main class="flex flex-row">
+    <main class="flex flex-row min-h-full">
       <sidebar />
 
       <router-view />
@@ -13,6 +12,4 @@ import Sidebar from '@/modules/common/layouts/Sidebar.vue'
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
