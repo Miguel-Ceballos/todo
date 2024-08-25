@@ -13,3 +13,4 @@ module.exports = {
     ecmaVersion: 'latest'
   }
 }
+s
