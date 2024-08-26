@@ -10,7 +10,7 @@ import HashtagIcon from '@/modules/common/icons/HashtagIcon.vue';
 import { useCategoriesStore } from '@/modules/categories/stores/categories.store';
 
 const categories = useCategoriesStore();
-console.log(categories)
+// console.log(categories)
 </script>
 
 <template>
@@ -26,10 +26,10 @@ console.log(categories)
           <create-button text="New" />
         </li>
         <li class="hover:bg-zincs-800 hover:rounded-md">
-          <a class="text-gray-400 hover:text-gray-100">
+          <router-link :to="{ name: 'home' }" class="text-gray-400 hover:text-gray-100">
             <list-bullet-icon />
             Tasks
-          </a>
+          </router-link>
         </li>
         <li class="hover:bg-zincs-800 hover:rounded-md">
           <a class="text-gray-400 hover:text-gray-100">
@@ -68,10 +68,13 @@ console.log(categories)
           <create-button text="New Category" />
         </li>
         <li v-for="category in categories.categories" class="hover:bg-zincs-800 hover:rounded-md">
-          <a class="text-gray-400 hover:text-gray-100">
+          <router-link
+            :to="{ name: 'category-tasks', params: { id: category.id } }"
+            class="text-gray-400 hover:text-gray-100"
+          >
             <hashtag-icon />
-            {{category.title}}
-          </a>
+            {{ category.title }}
+          </router-link>
         </li>
       </ul>
     </div>
