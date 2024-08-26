@@ -7,6 +7,10 @@ import CheckCircleIcon from '@/modules/common/icons/CheckCircleIcon.vue';
 import GoalsIcon from '@/modules/common/icons/GoalsIcon.vue';
 import CalendarEvents from '@/modules/common/icons/CalendarEvents.vue';
 import HashtagIcon from '@/modules/common/icons/HashtagIcon.vue';
+import { useCategoriesStore } from '@/modules/categories/stores/categories.store';
+
+const categories = useCategoriesStore();
+console.log(categories)
 </script>
 
 <template>
@@ -63,22 +67,10 @@ import HashtagIcon from '@/modules/common/icons/HashtagIcon.vue';
         <li class="hover:bg-zincs-800 hover:rounded-md group">
           <create-button text="New Category" />
         </li>
-        <li class="hover:bg-zincs-800 hover:rounded-md">
+        <li v-for="category in categories.categories" class="hover:bg-zincs-800 hover:rounded-md">
           <a class="text-gray-400 hover:text-gray-100">
             <hashtag-icon />
-            Tasks
-          </a>
-        </li>
-        <li class="hover:bg-zincs-800 hover:rounded-md">
-          <a class="text-gray-400 hover:text-gray-100">
-            <hashtag-icon />
-            Today
-          </a>
-        </li>
-        <li class="hover:bg-zincs-800 hover:rounded-md">
-          <a class="text-gray-400 hover:text-gray-100">
-            <hashtag-icon />
-            Upcoming
+            {{category.title}}
           </a>
         </li>
       </ul>
