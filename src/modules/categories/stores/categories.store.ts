@@ -13,8 +13,6 @@ export const useCategoriesStore = defineStore('categories', () => {
   const getCategories = async (): Promise<Category[]> => {
     const response = await todoApi.get<CategoriesListResponse>('/categories/');
 
-    // console.log(response);
-
     return response.data.data.map((category) => {
       return {
         id: category.id,
