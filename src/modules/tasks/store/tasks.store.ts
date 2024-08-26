@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { tasksApi } from '@/modules/tasks/api/tasksApi';
+import { todoApi } from '@/modules/tasks/api/tasksApi';
 import { onMounted, ref } from 'vue';
 import type { TasksListResponse } from '@/modules/tasks/interfaces/tasks-list.response';
 import type { Task } from '@/modules/tasks/interfaces/task.interface';
@@ -9,7 +9,7 @@ export const useTasksStore = defineStore('tasks', () => {
 
   const getTasks = async (): Promise<Task[]> => {
     try {
-      const response = await tasksApi.get<TasksListResponse>('/tasks?include=category');
+      const response = await todoApi.get<TasksListResponse>('/tasks?include=category');
 
       return response.data.data.map((task) => {
         return {
