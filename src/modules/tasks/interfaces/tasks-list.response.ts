@@ -6,7 +6,8 @@ export interface Datum {
   type: DatumType;
   id: number;
   attributes: Attributes;
-  relationships: Relationships;
+  relationships: DatumRelationships;
+  includes: Includes;
   links: Links;
 }
 
@@ -24,13 +25,25 @@ export enum Status {
   P = 'P',
 }
 
+export interface Includes {
+  type: DataType;
+  id: number;
+  attributes: IncludesAttributes;
+  relationships: IncludesRelationships;
+  links: Links;
+}
+
+export interface IncludesAttributes {
+  title: string;
+  slug: string;
+}
+
 export interface Links {
   self: string;
 }
 
-export interface Relationships {
+export interface IncludesRelationships {
   user: Category;
-  category: Category;
 }
 
 export interface Category {
@@ -45,6 +58,11 @@ export interface Data {
 export enum DataType {
   Category = 'category',
   User = 'user',
+}
+
+export interface DatumRelationships {
+  user: Category;
+  category: Category;
 }
 
 export enum DatumType {

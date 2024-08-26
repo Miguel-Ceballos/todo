@@ -9,7 +9,7 @@ export const useTasksStore = defineStore('tasks', () => {
 
   const getTasks = async (): Promise<Task[]> => {
     try {
-      const response = await tasksApi.get<TasksListResponse>('/tasks');
+      const response = await tasksApi.get<TasksListResponse>('/tasks?include=category');
 
       return response.data.data.map((task) => {
         return {
@@ -17,6 +17,7 @@ export const useTasksStore = defineStore('tasks', () => {
           title: task.attributes.title,
           description: task.attributes.description,
           status: task.attributes.status,
+          category: task.includes.attributes.title
         };
       });
     } catch (e) {

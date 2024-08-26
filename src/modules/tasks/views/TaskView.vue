@@ -37,11 +37,15 @@ const tasksStore = useTasksStore();
               </div>
               <div class="w-full overflow-hidden">
                 <div class="flex flex-col">
-                  <h3 class="text-gray-200 text-sm mb-1 group-hover:text-accent group-hover:font-semibold">{{ task.title }}</h3>
+                  <h3
+                    class="text-gray-200 text-sm mb-1 group-hover:text-accent group-hover:font-semibold"
+                  >
+                    {{ task.title }}
+                  </h3>
                   <p class="truncate text-xs">{{ task.description }}</p>
                 </div>
                 <div class="flex justify-end">
-                  <button class="btn btn-ghost btn-xs justify-end">#Home</button>
+                  <button class="btn btn-ghost btn-xs justify-end">#{{ task.category }}</button>
                 </div>
               </div>
             </div>
