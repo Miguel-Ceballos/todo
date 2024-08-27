@@ -42,23 +42,23 @@ const categories = useCategoriesStore();
         </a>
       </li>
       <li class="hover:bg-zincs-800 hover:rounded-md">
-        <a class="text-gray-400 hover:text-gray-100">
-          <calendar-events />
-          Events
-        </a>
-      </li>
-      <li class="hover:bg-zincs-800 hover:rounded-md">
         <router-link :to="{name: 'completed-tasks'}" class="text-gray-400 hover:text-gray-100">
           <check-circle-icon />
           Completed
         </router-link>
       </li>
-      <li class="hover:bg-zincs-800 hover:rounded-md">
-        <a class="text-gray-400 hover:text-gray-100">
-          <goals-icon />
-          Goals
-        </a>
-      </li>
+<!--      <li class="hover:bg-zincs-800 hover:rounded-md">-->
+<!--        <a class="text-gray-400 hover:text-gray-100">-->
+<!--          <calendar-events />-->
+<!--          Events-->
+<!--        </a>-->
+<!--      </li>-->
+<!--      <li class="hover:bg-zincs-800 hover:rounded-md">-->
+<!--        <a class="text-gray-400 hover:text-gray-100">-->
+<!--          <goals-icon />-->
+<!--          Goals-->
+<!--        </a>-->
+<!--      </li>-->
     </ul>
     <ul class="menu">
       <li class="menu-title"><a>Categories</a></li>
