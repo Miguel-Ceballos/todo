@@ -20,6 +20,11 @@ const router = createRouter({
           name: 'category-tasks',
           component: () => import('@/modules/categories/views/CategoriesView.vue'),
         },
+        {
+          path: 'tasks/completed',
+          name: 'completed-tasks',
+          component: () => import('@/modules/tasks/views/PendingTasksView.vue'),
+        },
       ],
     },
   ],

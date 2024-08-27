@@ -9,7 +9,25 @@ export const useTasksStore = defineStore('tasks', () => {
 
   const getTasks = async (): Promise<Task[]> => {
     try {
-      const response = await todoApi.get<TasksListResponse>('/tasks?include=category');
+      const response = await todoApi.get<TasksListResponse>('/tasks?status=P&include=category');
+
+      return response.data.data.map((task) => {
+        return {
+          id: task.id,
+          title: task.attributes.title,
+          description: task.attributes.description,
+          status: task.attributes.status,
+          category: task.includes.attributes.title
+        };
+      });
+    } catch (e) {
+      throw 'Unexpected error.';
+    }
+  };
+
+  const getPendingTasks = async (): Promise<Task[]> => {
+    try {
+      const response = await todoApi.get<TasksListResponse>('/tasks?status=C&include=category');
 
       return response.data.data.map((task) => {
         return {
@@ -31,6 +49,7 @@ export const useTasksStore = defineStore('tasks', () => {
 
   return {
     getTasks,
+    getPendingTasks,
     tasks,
   };
 });

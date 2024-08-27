@@ -48,10 +48,10 @@ const categories = useCategoriesStore();
         </a>
       </li>
       <li class="hover:bg-zincs-800 hover:rounded-md">
-        <a class="text-gray-400 hover:text-gray-100">
+        <router-link :to="{name: 'completed-tasks'}" class="text-gray-400 hover:text-gray-100">
           <check-circle-icon />
           Completed
-        </a>
+        </router-link>
       </li>
       <li class="hover:bg-zincs-800 hover:rounded-md">
         <a class="text-gray-400 hover:text-gray-100">
