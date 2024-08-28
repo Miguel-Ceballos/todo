@@ -39,6 +39,19 @@ export const useCategoriesStore = defineStore('categories', () => {
     });
   };
 
+  const postCategory =  async (value: string) => {
+    const response = await todoApi.post(`/categories/`, {
+      data: {
+        type: 'categories',
+        attributes: {
+          title: value,
+        },
+      },
+    });
+
+    console.log(response);
+  }
+
   onMounted(async () => {
     categories.value = await getCategories();
   });
@@ -46,6 +59,7 @@ export const useCategoriesStore = defineStore('categories', () => {
   return {
     categories,
     getCategory,
+    postCategory,
     getCategoryTasks,
   };
 });

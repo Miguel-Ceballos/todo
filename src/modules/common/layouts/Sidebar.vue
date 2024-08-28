@@ -8,8 +8,16 @@ import GoalsIcon from '@/modules/common/icons/GoalsIcon.vue';
 import CalendarEvents from '@/modules/common/icons/CalendarEvents.vue';
 import HashtagIcon from '@/modules/common/icons/HashtagIcon.vue';
 import { useCategoriesStore } from '@/modules/categories/stores/categories.store';
+import CategoryForm from '@/modules/categories/components/CategoryForm.vue'
+import { ref } from 'vue'
 
 const categories = useCategoriesStore();
+const openInput = ref(false)
+
+const handleCategoryForm = () => {
+  openInput.value = !openInput.value
+}
+
 </script>
 
 <template>
@@ -63,7 +71,10 @@ const categories = useCategoriesStore();
     <ul class="menu">
       <li class="menu-title"><a>Categories</a></li>
       <li class="hover:bg-zincs-800 hover:rounded-md group">
-        <create-button text="New Category" />
+        <create-button @click="handleCategoryForm" text="New Category" />
+      </li>
+      <li class="hover:bg-zincs-800 hover:rounded-md" v-if="openInput">
+        <category-form @handle-category-form="handleCategoryForm" />
       </li>
       <li v-for="category in categories.categories" class="hover:bg-zincs-800 hover:rounded-md">
         <router-link
