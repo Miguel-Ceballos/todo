@@ -43,6 +43,29 @@ export const useTasksStore = defineStore('tasks', () => {
     }
   };
 
+  const postTasks = async (form: Task) => {
+    const response = await todoApi.post(`/tasks/`, {
+      data: {
+        type: 'tasks',
+        attributes: {
+          title: form.title,
+          description: form.description,
+          status: form.status,
+        },
+        relationships: {
+          category: {
+            data: {
+              type: 'categories',
+              id: form.category,
+            },
+          }
+        }
+      },
+    });
+
+    console.log(response);
+  }
+
   onMounted(async () => {
     tasks.value = await getTasks();
   });
@@ -50,6 +73,7 @@ export const useTasksStore = defineStore('tasks', () => {
   return {
     getTasks,
     getPendingTasks,
+    postTasks,
     tasks,
   };
 });

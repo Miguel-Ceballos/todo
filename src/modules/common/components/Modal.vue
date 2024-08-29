@@ -7,7 +7,7 @@ withDefaults(defineProps<Props>(), {
   open: false
 })
 
-defineEmits(['handle-click-modal'])
+defineEmits(['handle-click-modal', 'handle-submit'])
 
 </script>
 
@@ -18,10 +18,10 @@ defineEmits(['handle-click-modal'])
     <div class="modal-box">
       <h3 class="text-xl font-bold mb-2">New Task</h3>
       <div class="w-full">
-        <form method="dialog" class="space-y-4">
+        <form method="dialog" class="space-y-4" @submit.prevent="$emit('handle-submit')">
           <slot name="form" />
           <div class="flex justify-end space-x-4">
-            <button class="btn btn-neutral" @click="$emit('handle-click-modal')">Close</button>
+            <button type="button" class="btn btn-neutral" @click="$emit('handle-click-modal')">Close</button>
             <slot name="actions" />
           </div>
         </form>
