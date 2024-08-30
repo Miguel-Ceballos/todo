@@ -27,7 +27,7 @@ export const useCategoriesStore = defineStore('categories', () => {
   };
 
   const getCategoryTasks = async (id: string | RouteParamValue[]): Promise<Task[]> => {
-    const response = await todoApi.get<TasksListResponse>(`/categories/${id}/tasks?status=P`);
+    const response = await todoApi.get<TasksListResponse>(`/categories/${id}/tasks?status=P,D`);
 
     return response.data.data.map((task) => {
       return {

@@ -9,7 +9,7 @@ export const useTasksStore = defineStore('tasks', () => {
 
   const getTasks = async (): Promise<Task[]> => {
     try {
-      const response = await todoApi.get<TasksListResponse>('/tasks?status=P&include=category');
+      const response = await todoApi.get<TasksListResponse>('/tasks?status=P,D&include=category');
 
       return response.data.data.map((task) => {
         return {
