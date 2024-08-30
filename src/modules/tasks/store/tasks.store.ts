@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
 import { todoApi } from '@/modules/tasks/api/tasksApi';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, type UnwrapNestedRefs } from 'vue';
 import type { TasksListResponse } from '@/modules/tasks/interfaces/tasks-list.response';
-import type { Task } from '@/modules/tasks/interfaces/task.interface';
+import type { Form, Task } from '@/modules/tasks/interfaces/task.interface';
 
 export const useTasksStore = defineStore('tasks', () => {
   const tasks = ref<Task[]>([]);
@@ -17,7 +17,7 @@ export const useTasksStore = defineStore('tasks', () => {
           title: task.attributes.title,
           description: task.attributes.description,
           status: task.attributes.status,
-          category: task.includes.attributes.title
+          category: task.includes.attributes.title,
         };
       });
     } catch (e) {
@@ -35,7 +35,7 @@ export const useTasksStore = defineStore('tasks', () => {
           title: task.attributes.title,
           description: task.attributes.description,
           status: task.attributes.status,
-          category: task.includes.attributes.title
+          category: task.includes.attributes.title,
         };
       });
     } catch (e) {
@@ -43,8 +43,8 @@ export const useTasksStore = defineStore('tasks', () => {
     }
   };
 
-  const postTasks = async (form: Task) => {
-    const response = await todoApi.post(`/tasks/`, {
+  const postTasks = async (form: Form) => {
+    const response = await todoApi.post('/tasks', {
       data: {
         type: 'tasks',
         attributes: {
@@ -58,13 +58,23 @@ export const useTasksStore = defineStore('tasks', () => {
               type: 'categories',
               id: form.category,
             },
-          }
-        }
+          },
+        },
       },
     });
 
-    console.log(response);
-  }
+    if (response.data.errors) {
+      const errors: string[] = [];
+      response.data.errors.forEach((error: { message: string }) => {
+        errors.push(error.message);
+      });
+      return errors;
+    }
+
+    tasks.value = await getTasks();
+
+    return response.status;
+  };
 
   onMounted(async () => {
     tasks.value = await getTasks();

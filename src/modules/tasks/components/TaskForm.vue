@@ -1,38 +1,50 @@
 <script setup lang="ts">
-
-import Modal from '@/modules/common/components/Modal.vue'
-import CreateButton from '@/modules/common/components/CreateButton.vue'
+import Modal from '@/modules/common/components/Modal.vue';
+import CreateButton from '@/modules/common/components/CreateButton.vue';
 import { reactive, ref } from 'vue';
 import { useCategoriesStore } from '@/modules/categories/stores/categories.store';
 import { useTasksStore } from '@/modules/tasks/store/tasks.store';
+import type { Status } from '@/modules/tasks/interfaces/tasks-list.response'
+import type { Form } from '@/modules/tasks/interfaces/task.interface'
 
-const oModal = ref(false)
+const oModal = ref(false);
 
-interface Form {
-  title: string;
-  description: string;
-  status: string;
-  category: number;
-}
+const form = reactive(<Form>{});
 
-const form = reactive<Form>({})
+const categoryStore = useCategoriesStore();
+const tasksStore = useTasksStore();
 
-const categoryStore = useCategoriesStore()
-const tasksStore = useTasksStore()
+const clearForm = () => {
+  form.title = '';
+  form.description = '';
+  form.status = <Status>'P';
+  form.category = null;
+};
 
 const handleClickModal = () => {
-  form.title = ''
-  form.description = ''
-  form.status = 'P'
-  form.category = null
-  oModal.value = !oModal.value
-}
+  clearForm();
+  oModal.value = !oModal.value;
+};
 
+const handleSubmit = async () => {
+  const response = await tasksStore.postTasks(form);
+
+  if (response === 201) {
+    handleClickModal();
+    return;
+  }
+
+  console.log(response);
+};
 </script>
 
 <template>
   <create-button @click="handleClickModal" text="New Task" />
-  <modal :open="oModal" @handle-click-modal="handleClickModal" @handle-submit="tasksStore.postTasks(form)">
+  <modal
+    :open="oModal"
+    @handle-click-modal="handleClickModal"
+    @handle-submit="handleSubmit"
+  >
     <template #form>
       <div class="space-y-1">
         <span class="label-text">Title</span>
@@ -46,7 +58,7 @@ const handleClickModal = () => {
       <div class="space-y-1">
         <span class="label-text">Description</span>
         <textarea
-          class="textarea  textarea-bordered textarea-accent w-full"
+          class="textarea textarea-bordered textarea-accent w-full"
           placeholder="Task description (optional)"
           v-model="form.description"
         ></textarea>
@@ -62,11 +74,12 @@ const handleClickModal = () => {
       <div class="space-y-1">
         <span class="label-text">Category</span>
         <select class="select select-accent w-full" v-model="form.category">
-          <option disabled selected>Select category</option>
+          <option disabled selected value="null">Select category</option>
           <option
             v-for="category in categoryStore.categories"
             :key="category.id"
-            :value="category.id">
+            :value="category.id"
+          >
             {{ category.title }}
           </option>
         </select>
@@ -74,11 +87,9 @@ const handleClickModal = () => {
     </template>
 
     <template #actions>
-      <button class="btn btn-accent" @click="handleSubmit">Save</button>
+      <button class="btn btn-accent">Save</button>
     </template>
   </modal>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
