@@ -25,7 +25,7 @@ export const useTasksStore = defineStore('tasks', () => {
     }
   };
 
-  const getPendingTasks = async (): Promise<Task[]> => {
+  const getCompletedTasks = async (): Promise<Task[]> => {
     try {
       const response = await todoApi.get<TasksListResponse>('/tasks?status=C&include=category');
 
@@ -82,7 +82,7 @@ export const useTasksStore = defineStore('tasks', () => {
 
   return {
     getTasks,
-    getPendingTasks,
+    getCompletedTasks,
     postTasks,
     tasks,
   };

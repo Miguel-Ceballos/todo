@@ -13,7 +13,7 @@ const tasks = ref<Task[]>([])
 const tasksStore = useTasksStore();
 
 onMounted(async () => {
-  tasks.value = await tasksStore.getPendingTasks();
+  tasks.value = await tasksStore.getCompletedTasks();
 });
 
 </script>
@@ -53,7 +53,7 @@ onMounted(async () => {
               <p class="truncate text-xs">{{ task.description }}</p>
             </div>
             <div class="flex justify-end">
-              <button class="btn btn-ghost btn-xs justify-end">#{{ task.category }}</button>
+              <button class="btn btn-ghost btn-xs justify-end">#{{ task.category.title }}</button>
             </div>
           </div>
         </div>
