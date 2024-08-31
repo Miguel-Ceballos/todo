@@ -1,16 +1,21 @@
 import type { Status } from '@/modules/tasks/interfaces/tasks-list.response'
 
 export interface Task {
-  id: number;
+  id?: number;
   title: string;
   description: string;
   status: Status;
-  category?: string
+  category: Category;
 }
 
-export interface Form {
+export interface CategoryTask {
+  id?: number;
   title: string;
   description: string;
   status: Status;
-  category: number | null;
+}
+
+export interface Category {
+  id: number;
+  title: string;
 }

@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue';
 import { todoApi } from '@/modules/tasks/api/tasksApi';
 import type { Category } from '@/modules/categories/interfaces/category.interface';
 import type { CategoriesListResponse } from '@/modules/categories/interfaces/categories-list.response';
-import type { Task } from '@/modules/tasks/interfaces/task.interface';
+import type { CategoryTask, Task } from '@/modules/tasks/interfaces/task.interface'
 import type { TasksListResponse } from '@/modules/tasks/interfaces/tasks-list.response';
 import type { RouteParamValue } from 'vue-router';
 
@@ -26,7 +26,7 @@ export const useCategoriesStore = defineStore('categories', () => {
     return response.data.data.attributes.title;
   };
 
-  const getCategoryTasks = async (id: string | RouteParamValue[]): Promise<Task[]> => {
+  const getCategoryTasks = async (id: string | RouteParamValue[]): Promise<CategoryTask[]> => {
     const response = await todoApi.get<TasksListResponse>(`/categories/${id}/tasks?status=P,D`);
 
     return response.data.data.map((task) => {
