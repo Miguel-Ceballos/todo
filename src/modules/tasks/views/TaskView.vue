@@ -2,8 +2,12 @@
 import CheckCircleIcon from '@/modules/common/icons/CheckCircleIcon.vue';
 import TaskForm from '@/modules/tasks/components/TaskForm.vue';
 import { useTasksStore } from '@/modules/tasks/store/tasks.store';
+import CreateButton from '@/modules/common/components/CreateButton.vue'
+import { useModalStore } from '@/modules/common/stores/modal.store'
 
 const tasksStore = useTasksStore();
+const modalStore = useModalStore();
+
 </script>
 
 <template>
@@ -16,12 +20,14 @@ const tasksStore = useTasksStore();
       </div>
     </div>
     <div>
-      <task-form />
+      <create-button @click="modalStore.handleClickModal" text="New Task" />
+      <task-form v-if="modalStore.oModal"/>
     </div>
     <ul v-if="tasksStore.tasks">
       <li
         v-for="task in tasksStore.tasks"
         :key="task.id"
+        @click="modalStore.handleClickModal(task)"
         class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 py-2 rounded-t-md group transition-duration-200"
       >
         <div class="flex w-full space-x-2">
@@ -41,7 +47,7 @@ const tasksStore = useTasksStore();
               <p class="truncate text-xs">{{ task.description }}</p>
             </div>
             <div class="flex justify-end">
-              <button class="btn btn-ghost btn-xs justify-end">#{{ task.category }}</button>
+              <button class="btn btn-ghost btn-xs justify-end">#{{ task.category.title }}</button>
             </div>
           </div>
         </div>
