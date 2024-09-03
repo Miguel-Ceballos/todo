@@ -46,6 +46,7 @@ export const useTasksStore = defineStore('tasks', () => {
   };
 
   const postTasks = async (form: Task) => {
+    console.log('hello world');
     const response = await todoApi.post('/tasks', {
       data: {
         type: 'tasks',
@@ -58,12 +59,14 @@ export const useTasksStore = defineStore('tasks', () => {
           category: {
             data: {
               type: 'categories',
-              id: form.category,
+              id: form.category.id,
             },
           },
         },
       },
     });
+
+    console.log(response);
 
     if (response.data.errors) {
       const errors: string[] = [];
@@ -73,13 +76,15 @@ export const useTasksStore = defineStore('tasks', () => {
       return errors;
     }
 
-    tasks.value = await getTasks();
+    if (response.status === 201) {
+      tasks.value = await getTasks();
+      modalStore.handleClickModal();
+    }
 
     return response.status;
   };
 
   const updateTask = async (form: Task) => {
-    console.log(form);
     const response = await todoApi.patch(`/tasks/${form.id}`, {
       data: {
         type: 'tasks',
@@ -107,7 +112,10 @@ export const useTasksStore = defineStore('tasks', () => {
       return errors;
     }
 
-    tasks.value = await getTasks();
+    if (response.status === 200) {
+      tasks.value = await getTasks();
+      modalStore.handleClickModal();
+    }
 
     return response.status;
   };

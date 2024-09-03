@@ -7,8 +7,6 @@ export const useTaskFormStore = defineStore('task-form', () => {
   // @ts-ignore
   const form = reactive(<Task>{id: 0, title: '', description: '', status: <Status>'P', category: <Category>{ id: 0, title: '' }});
 
-  console.log(form)
-
   const clearForm = () => {
     form.id = 0;
     form.title = '';
