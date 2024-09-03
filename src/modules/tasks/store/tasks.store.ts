@@ -4,9 +4,11 @@ import { onMounted, ref } from 'vue';
 import type { TasksListResponse } from '@/modules/tasks/interfaces/tasks-list.response';
 import type { Task } from '@/modules/tasks/interfaces/task.interface';
 import { useModalStore } from '@/modules/common/stores/modal.store';
+import { useAlertStore } from '@/modules/common/stores/alert.store'
 
 export const useTasksStore = defineStore('tasks', () => {
   const modalStore = useModalStore();
+  const alertStore = useAlertStore();
   const tasks = ref<Task[]>([]);
 
   const getTasks = async (): Promise<Task[]> => {
@@ -66,8 +68,6 @@ export const useTasksStore = defineStore('tasks', () => {
       },
     });
 
-    console.log(response);
-
     if (response.data.errors) {
       const errors: string[] = [];
       response.data.errors.forEach((error: { message: string }) => {
@@ -81,7 +81,7 @@ export const useTasksStore = defineStore('tasks', () => {
       modalStore.handleClickModal();
     }
 
-    return response.status;
+    alertStore.handleClickAlert('Task created successfully!');
   };
 
   const updateTask = async (form: Task) => {
@@ -117,7 +117,7 @@ export const useTasksStore = defineStore('tasks', () => {
       modalStore.handleClickModal();
     }
 
-    return response.status;
+    alertStore.handleClickAlert('Task updated successfully!');
   };
 
   const deleteTask = async (id: Task['id']) => {
@@ -133,6 +133,8 @@ export const useTasksStore = defineStore('tasks', () => {
       tasks.value = await getTasks();
       modalStore.handleClickModal();
     }
+
+    alertStore.handleClickAlert('Task deleted successfully!');
   };
 
   onMounted(async () => {
