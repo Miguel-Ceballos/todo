@@ -76,6 +76,40 @@ export const useTasksStore = defineStore('tasks', () => {
     return response.status;
   };
 
+  const updateTask = async (form: Task) => {
+    console.log(form);
+    const response = await todoApi.patch(`/tasks/${form.id}`, {
+      data: {
+        type: 'tasks',
+        attributes: {
+          title: form.title,
+          description: form.description,
+          status: form.status,
+        },
+        relationships: {
+          category: {
+            data: {
+              type: 'categories',
+              id: form.category.id,
+            },
+          },
+        },
+      },
+    });
+
+    if (response.data.errors) {
+      const errors: string[] = [];
+      response.data.errors.forEach((error: { message: string }) => {
+        errors.push(error.message);
+      });
+      return errors;
+    }
+
+    tasks.value = await getTasks();
+
+    return response.status;
+  };
+
   onMounted(async () => {
     tasks.value = await getTasks();
   });
@@ -84,6 +118,7 @@ export const useTasksStore = defineStore('tasks', () => {
     getTasks,
     getCompletedTasks,
     postTasks,
+    updateTask,
     tasks,
   };
 });

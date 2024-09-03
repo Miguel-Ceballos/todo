@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import Modal from '@/modules/common/components/Modal.vue';
-import { onBeforeMount, onMounted } from 'vue'
 import { useCategoriesStore } from '@/modules/categories/stores/categories.store';
 import { useTasksStore } from '@/modules/tasks/store/tasks.store';
-import type { Task } from '@/modules/tasks/interfaces/task.interface';
 import { useModalStore } from '@/modules/common/stores/modal.store';
 import { useTaskFormStore } from '@/modules/tasks/store/task-form.store';
 
@@ -12,31 +10,20 @@ const tasksStore = useTasksStore();
 const modalStore = useModalStore();
 const taskFormStore = useTaskFormStore();
 
-interface Props {
-  isUpdate?: boolean;
-  attributes?: Task;
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  isUpdate: false,
-});
-
-onBeforeMount(() => {
-  if (props.isUpdate) {
-    taskFormStore.form = props.attributes;
-  }
-  console.log(taskFormStore.form.category.id);
-});
-
 const handleSubmit = async () => {
-  const response = await tasksStore.postTasks(taskFormStore.form);
-
-  if (response === 201) {
-    modalStore.handleClickModal();
-    return;
+  if (modalStore.isUpdate === true) {
+    const response = await tasksStore.updateTask(taskFormStore.form);
+    if (response === 200) {
+      modalStore.handleClickModal();
+      return;
+    }
+  } else {
+    const response = await tasksStore.postTasks(taskFormStore.form);
+    if (response === 201) {
+      modalStore.handleClickModal();
+      return;
+    }
   }
-
-  console.log(response);
 };
 </script>
 
@@ -88,7 +75,7 @@ const handleSubmit = async () => {
     </template>
 
     <template #actions>
-      <button class="btn btn-accent">Save</button>
+      <button class="btn btn-accent">{{ modalStore.isUpdate ? 'Update' : 'Save' }}</button>
     </template>
   </modal>
 </template>

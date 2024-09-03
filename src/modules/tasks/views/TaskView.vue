@@ -20,14 +20,14 @@ const modalStore = useModalStore();
       </div>
     </div>
     <div>
-      <create-button @click="modalStore.handleClickModal" text="New Task" />
+      <create-button @click="modalStore.handleClickModal(null, false)" text="New Task" />
       <task-form v-if="modalStore.oModal"/>
     </div>
     <ul v-if="tasksStore.tasks">
       <li
         v-for="task in tasksStore.tasks"
         :key="task.id"
-        @click="modalStore.handleClickModal(task)"
+        @click="modalStore.handleClickModal(task, true)"
         class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 py-2 rounded-t-md group transition-duration-200"
       >
         <div class="flex w-full space-x-2">
