@@ -20,8 +20,7 @@ defineEmits(['handle-click-modal', 'handle-submit'])
       <div class="w-full">
         <form method="dialog" class="space-y-4" @submit.prevent="$emit('handle-submit')">
           <slot name="form" />
-          <div class="flex justify-end space-x-4">
-            <button type="button" class="btn btn-neutral" @click="$emit('handle-click-modal')">Close</button>
+          <div class="flex justify-between">
             <slot name="actions" />
           </div>
         </form>

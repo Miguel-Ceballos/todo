@@ -3,8 +3,10 @@ import { todoApi } from '@/modules/tasks/api/tasksApi';
 import { onMounted, ref } from 'vue';
 import type { TasksListResponse } from '@/modules/tasks/interfaces/tasks-list.response';
 import type { Task } from '@/modules/tasks/interfaces/task.interface';
+import { useModalStore } from '@/modules/common/stores/modal.store';
 
 export const useTasksStore = defineStore('tasks', () => {
+  const modalStore = useModalStore();
   const tasks = ref<Task[]>([]);
 
   const getTasks = async (): Promise<Task[]> => {
@@ -110,6 +112,21 @@ export const useTasksStore = defineStore('tasks', () => {
     return response.status;
   };
 
+  const deleteTask = async (id: Task['id']) => {
+    if (confirm('Are you sure you want to delete this task?')) {
+      const response = await todoApi.delete(`/tasks/${id}`);
+      if (response.data.errors) {
+        const errors: string[] = [];
+        response.data.errors.forEach((error: { message: string }) => {
+          errors.push(error.message);
+        });
+        return errors;
+      }
+      tasks.value = await getTasks();
+      modalStore.handleClickModal();
+    }
+  };
+
   onMounted(async () => {
     tasks.value = await getTasks();
   });
@@ -119,6 +136,7 @@ export const useTasksStore = defineStore('tasks', () => {
     getCompletedTasks,
     postTasks,
     updateTask,
+    deleteTask,
     tasks,
   };
 });
