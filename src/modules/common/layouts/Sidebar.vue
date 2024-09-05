@@ -4,19 +4,13 @@ import ListBulletIcon from '@/modules/common/icons/ListBulletIcon.vue';
 import CalendarIcon from '@/modules/common/icons/CalendarIcon.vue';
 import CalendarDaysIcon from '@/modules/common/icons/CalendarDaysIcon.vue';
 import CheckCircleIcon from '@/modules/common/icons/CheckCircleIcon.vue';
-import GoalsIcon from '@/modules/common/icons/GoalsIcon.vue';
-import CalendarEvents from '@/modules/common/icons/CalendarEvents.vue';
 import HashtagIcon from '@/modules/common/icons/HashtagIcon.vue';
 import { useCategoriesStore } from '@/modules/categories/stores/categories.store';
-import CategoryForm from '@/modules/categories/components/CategoryForm.vue'
-import { ref } from 'vue'
+import { useCategoryModalStore } from '@/modules/common/stores/category-modal.store'
+import { useModalStore } from '@/modules/common/stores/modal.store'
 
 const categories = useCategoriesStore();
-const openInput = ref(false)
-
-const handleCategoryForm = () => {
-  openInput.value = !openInput.value
-}
+const modalStore = useModalStore();
 
 </script>
 
@@ -55,26 +49,11 @@ const handleCategoryForm = () => {
           Completed
         </router-link>
       </li>
-<!--      <li class="hover:bg-zincs-800 hover:rounded-md">-->
-<!--        <a class="text-gray-400 hover:text-gray-100">-->
-<!--          <calendar-events />-->
-<!--          Events-->
-<!--        </a>-->
-<!--      </li>-->
-<!--      <li class="hover:bg-zincs-800 hover:rounded-md">-->
-<!--        <a class="text-gray-400 hover:text-gray-100">-->
-<!--          <goals-icon />-->
-<!--          Goals-->
-<!--        </a>-->
-<!--      </li>-->
     </ul>
     <ul class="menu">
       <li class="menu-title"><a>Categories</a></li>
       <li class="hover:bg-zincs-800 hover:rounded-md group">
-        <create-button @click="handleCategoryForm" text="New Category" />
-      </li>
-      <li class="hover:bg-zincs-800 hover:rounded-md" v-if="openInput">
-        <category-form @handle-category-form="handleCategoryForm" />
+        <create-button @click="modalStore.handleCategoryModal(null, false)" text="New Category" />
       </li>
       <li v-for="category in categories.categories" class="hover:bg-zincs-800 hover:rounded-md">
         <router-link

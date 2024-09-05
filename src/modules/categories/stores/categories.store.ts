@@ -1,5 +1,5 @@
-import { defineStore } from 'pinia';
-import { onMounted, ref } from 'vue';
+import { type _ExtractStateFromSetupStore, defineStore } from 'pinia'
+import { onMounted, ref, type UnwrapNestedRefs, type UnwrapRef } from 'vue'
 import { todoApi } from '@/modules/tasks/api/tasksApi';
 import type { Category } from '@/modules/categories/interfaces/category.interface';
 import type { CategoriesListResponse } from '@/modules/categories/interfaces/categories-list.response';
@@ -39,18 +39,18 @@ export const useCategoriesStore = defineStore('categories', () => {
     });
   };
 
-  const postCategory =  async (value: string) => {
+  const postCategory = async (form: Category) => {
     const response = await todoApi.post(`/categories/`, {
       data: {
         type: 'categories',
         attributes: {
-          title: value,
+          title: form.title,
         },
       },
     });
 
     console.log(response);
-  }
+  };
 
   onMounted(async () => {
     categories.value = await getCategories();

@@ -4,9 +4,13 @@ import TaskForm from '@/modules/tasks/components/TaskForm.vue';
 import { useCategoriesStore } from '@/modules/categories/stores/categories.store';
 import { onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router';
+import CreateButton from '@/modules/common/components/CreateButton.vue'
+import { useModalStore } from '@/modules/common/stores/modal.store'
+import CategoryForm from '@/modules/categories/components/CategoryForm.vue'
 
 const route = useRoute();
 const categoriesStore = useCategoriesStore();
+const modalStore = useModalStore();
 
 const categoryTasks = ref([]);
 const category = ref();
@@ -25,6 +29,7 @@ onMounted(async () => {
 </script>
 
 <template>
+  <category-form v-if="modalStore.isCategoryModal" />
   <div class="space-y-6">
     <div class="flex space-x-4 justify-between items-end">
       <h2 class="text-2xl text-gray-300 md:text-3xl font-bold">{{category}}</h2>
@@ -34,7 +39,8 @@ onMounted(async () => {
       </div>
     </div>
     <div>
-      <task-form />
+      <create-button @click="modalStore.handleTaskModal(null, false)" text="New Task" />
+      <task-form v-if="modalStore.isTaskModal"/>
     </div>
     <ul>
       <li

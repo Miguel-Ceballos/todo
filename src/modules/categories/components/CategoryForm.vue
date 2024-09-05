@@ -1,22 +1,53 @@
 <script setup lang="ts">
 
 import { useCategoriesStore } from '@/modules/categories/stores/categories.store'
-import { ref } from 'vue'
+import Modal from '@/modules/common/components/Modal.vue'
+import { useCategoryFormStore } from '@/modules/categories/stores/category-form.store'
+import { useCategoryModalStore } from '@/modules/common/stores/category-modal.store'
+import { useModalStore } from '@/modules/common/stores/modal.store'
 
-
-const categoryTitle = ref('')
 const categoryStore = useCategoriesStore()
+const modalStore = useModalStore()
+const categoryFormStore = useCategoryFormStore()
 
-defineEmits(['handle-category-form'])
+const handleSubmit = async () => {
+  if (modalStore.isUpdate === true) {
+    await categoryStore.postCategory(categoryFormStore.form);
+  } else {
+    await categoryStore.postCategory(categoryFormStore.form);
+  }
+};
 
 </script>
 
 <template>
-  <form class="flex flex-col w-full space-y-1" @submit.prevent="categoryStore.postCategory(categoryTitle)">
-    <input type="text" placeholder="Category title" class="input input-bordered input-accent input-sm w-full" v-model="categoryTitle"/>
-    <div class="flex w-full justify-end items-end space-x-2">
-      <button class="btn btn-neutral btn-sm" @click="$emit('handle-category-form')">Cancel</button>
-      <button class="btn btn-accent btn-sm" @Click="categoryStore.postCategory('New Category')">Add</button>
-    </div>
-  </form>
+  <modal
+    :open="modalStore.isCategoryModal"
+    @handle-click-modal="modalStore.handleCategoryModal"
+    @handle-submit="handleSubmit"
+  >
+    <template #form>
+      <div class="space-y-1">
+        <span class="label-text">Title</span>
+        <input
+          type="text"
+          placeholder="Category title"
+          class="input input-bordered input-accent w-full"
+          v-model="categoryFormStore.form.title"
+          required
+        />
+      </div>
+    </template>
+
+    <template #actions>
+      <div class="flex justify-end">
+        <div class="space-x-4">
+          <button type="button" class="btn btn-neutral" @click="modalStore.handleCategoryModal()">
+            Close
+          </button>
+          <button class="btn btn-accent">{{ modalStore.isUpdate ? 'Update' : 'Save' }}</button>
+        </div>
+      </div>
+    </template>
+  </modal>
 </template>

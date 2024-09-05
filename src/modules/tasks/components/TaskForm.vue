@@ -22,8 +22,8 @@ const handleSubmit = async () => {
 
 <template>
   <modal
-    :open="modalStore.oModal"
-    @handle-click-modal="modalStore.handleClickModal"
+    :open="modalStore.isTaskModal"
+    @handle-click-modal="modalStore.handleTaskModal"
     @handle-submit="handleSubmit"
   >
     <template #form>
@@ -77,7 +77,7 @@ const handleSubmit = async () => {
           </button>
         </div>
         <div class="space-x-4">
-          <button type="button" class="btn btn-neutral" @click="modalStore.handleClickModal()">
+          <button type="button" class="btn btn-neutral" @click="modalStore.handleTaskModal()">
             Close
           </button>
           <button class="btn btn-accent">{{ modalStore.isUpdate ? 'Update' : 'Save' }}</button>
