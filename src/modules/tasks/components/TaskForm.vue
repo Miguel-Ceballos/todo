@@ -69,17 +69,19 @@ const handleSubmit = async () => {
     </template>
 
     <template #actions>
-      <div>
-        <button type="button" class="btn" @click="tasksStore.deleteTask(taskFormStore.form.id)">
-          <trash-icon />
-          Delete
-        </button>
-      </div>
-      <div class="space-x-4">
-        <button type="button" class="btn btn-neutral" @click="modalStore.handleClickModal()">
-          Close
-        </button>
-        <button class="btn btn-accent">{{ modalStore.isUpdate ? 'Update' : 'Save' }}</button>
+      <div :class="modalStore.isUpdate ? 'flex justify-between' : 'flex justify-end'">
+        <div v-if="modalStore.isUpdate">
+          <button type="button" class="btn" @click="tasksStore.deleteTask(taskFormStore.form.id)">
+            <trash-icon />
+            Delete
+          </button>
+        </div>
+        <div class="space-x-4">
+          <button type="button" class="btn btn-neutral" @click="modalStore.handleClickModal()">
+            Close
+          </button>
+          <button class="btn btn-accent">{{ modalStore.isUpdate ? 'Update' : 'Save' }}</button>
+        </div>
       </div>
     </template>
   </modal>
