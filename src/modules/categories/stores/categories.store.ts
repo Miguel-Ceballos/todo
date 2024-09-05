@@ -6,9 +6,13 @@ import type { CategoriesListResponse } from '@/modules/categories/interfaces/cat
 import type { CategoryTask, Task } from '@/modules/tasks/interfaces/task.interface'
 import type { TasksListResponse } from '@/modules/tasks/interfaces/tasks-list.response';
 import type { RouteParamValue } from 'vue-router';
+import { useModalStore } from '@/modules/common/stores/modal.store'
+import { useAlertStore } from '@/modules/common/stores/alert.store'
 
 export const useCategoriesStore = defineStore('categories', () => {
   const categories = ref<Category[]>([]);
+  const modalStore = useModalStore();
+  const alertStore = useAlertStore();
 
   const getCategories = async (): Promise<Category[]> => {
     const response = await todoApi.get<CategoriesListResponse>('/categories/');
@@ -49,7 +53,19 @@ export const useCategoriesStore = defineStore('categories', () => {
       },
     });
 
-    console.log(response);
+    if (response.data.errors) {
+      const errors: string[] = [];
+      response.data.errors.forEach((error: { message: string }) => {
+        errors.push(error.message);
+      });
+      return errors;
+    }
+
+    if (response.status === 201) {
+      categories.value = await getCategories();
+      modalStore.handleCategoryModal()
+    }
+    alertStore.handleClickAlert('Category created successfully');
   };
 
   onMounted(async () => {

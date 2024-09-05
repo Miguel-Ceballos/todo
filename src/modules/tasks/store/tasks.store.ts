@@ -78,7 +78,7 @@ export const useTasksStore = defineStore('tasks', () => {
 
     if (response.status === 201) {
       tasks.value = await getTasks();
-      modalStore.handleClickModal();
+      modalStore.handleTaskModal();
     }
 
     alertStore.handleClickAlert('Task created successfully!');
@@ -114,7 +114,7 @@ export const useTasksStore = defineStore('tasks', () => {
 
     if (response.status === 200) {
       tasks.value = await getTasks();
-      modalStore.handleClickModal();
+      modalStore.handleTaskModal();
     }
 
     alertStore.handleClickAlert('Task updated successfully!');
@@ -131,7 +131,7 @@ export const useTasksStore = defineStore('tasks', () => {
         return errors;
       }
       tasks.value = await getTasks();
-      modalStore.handleClickModal();
+      modalStore.handleTaskModal();
     }
 
     alertStore.handleClickAlert('Task deleted successfully!');

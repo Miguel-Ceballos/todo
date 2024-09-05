@@ -5,6 +5,7 @@ import { useTasksStore } from '@/modules/tasks/store/tasks.store';
 import CreateButton from '@/modules/common/components/CreateButton.vue'
 import { useModalStore } from '@/modules/common/stores/modal.store'
 import AlertComponent from '@/modules/categories/components/AlertComponent.vue'
+import CategoryForm from '@/modules/categories/components/CategoryForm.vue'
 
 const tasksStore = useTasksStore();
 const modalStore = useModalStore();
@@ -13,6 +14,7 @@ const modalStore = useModalStore();
 
 <template>
   <alert-component />
+  <category-form v-if="modalStore.isCategoryModal" />
   <div class="space-y-6">
     <div class="flex space-x-4 justify-between items-end">
       <h2 class="text-2xl text-gray-300 md:text-3xl font-bold">Tasks</h2>

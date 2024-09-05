@@ -4,6 +4,7 @@ import type { Task } from '@/modules/tasks/interfaces/task.interface';
 import { useTaskFormStore } from '@/modules/tasks/store/task-form.store';
 import { useCategoryFormStore } from '@/modules/categories/stores/category-form.store'
 
+
 export const useModalStore = defineStore('modal', () => {
   const taskFormStore = useTaskFormStore();
   const categoryFormStore = useCategoryFormStore()

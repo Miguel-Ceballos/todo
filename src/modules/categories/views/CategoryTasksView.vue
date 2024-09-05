@@ -7,6 +7,7 @@ import { useRoute } from 'vue-router';
 import CreateButton from '@/modules/common/components/CreateButton.vue'
 import { useModalStore } from '@/modules/common/stores/modal.store'
 import CategoryForm from '@/modules/categories/components/CategoryForm.vue'
+import AlertComponent from '@/modules/categories/components/AlertComponent.vue'
 
 const route = useRoute();
 const categoriesStore = useCategoriesStore();
@@ -29,6 +30,7 @@ onMounted(async () => {
 </script>
 
 <template>
+  <alert-component />
   <category-form v-if="modalStore.isCategoryModal" />
   <div class="space-y-6">
     <div class="flex space-x-4 justify-between items-end">
