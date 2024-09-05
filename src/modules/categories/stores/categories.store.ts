@@ -5,7 +5,7 @@ import type { Category } from '@/modules/categories/interfaces/category.interfac
 import type { CategoriesListResponse } from '@/modules/categories/interfaces/categories-list.response';
 import type { CategoryTask } from '@/modules/tasks/interfaces/task.interface';
 import type { TasksListResponse } from '@/modules/tasks/interfaces/tasks-list.response';
-import type { RouteParamValue } from 'vue-router';
+import { type RouteParamValue, useRouter } from 'vue-router';
 import { useModalStore } from '@/modules/common/stores/modal.store';
 import { useAlertStore } from '@/modules/common/stores/alert.store';
 
@@ -13,6 +13,7 @@ export const useCategoriesStore = defineStore('categories', () => {
   const categories = ref<Category[]>([]);
   const modalStore = useModalStore();
   const alertStore = useAlertStore();
+  const router = useRouter();
 
   const categoryTasks = ref([]);
   const category = ref(<Category>{});
@@ -102,6 +103,20 @@ export const useCategoriesStore = defineStore('categories', () => {
     alertStore.handleClickAlert('Category updated successfully');
   };
 
+  const deleteCategory = async (id: Category['id']) => {
+    const response = await todoApi.delete(`/categories/${id}`);
+    if (response.data.errors) {
+      const errors: string[] = [];
+      response.data.errors.forEach((error: { message: string }) => {
+        errors.push(error.message);
+      });
+      return errors;
+    }
+    await router.push({ name: 'home' });
+    categories.value = await getCategories();
+    alertStore.handleClickAlert('Category deleted successfully');
+  }
+
   async function getValues(id: string | RouteParamValue[]){
     category.value = await getCategory(id);
     // @ts-ignore
@@ -121,5 +136,6 @@ export const useCategoriesStore = defineStore('categories', () => {
     postCategory,
     getCategoryTasks,
     updateCategory,
+    deleteCategory,
   };
 });

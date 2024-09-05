@@ -2,8 +2,10 @@
 import EllipsisVerticalIcon from '@/modules/common/icons/EllipsisVerticalIcon.vue';
 import type { Category } from '@/modules/tasks/interfaces/task.interface';
 import { useModalStore } from '@/modules/common/stores/modal.store';
+import { useCategoriesStore } from '@/modules/categories/stores/categories.store';
 
 const modalStore = useModalStore();
+const categoriesStore = useCategoriesStore();
 
 interface Props {
   category: Category;
@@ -23,7 +25,7 @@ defineProps<Props>();
     </div>
     <ul tabindex="0" class="dropdown-content menu bg-gray-800 rounded-box z-[1] w-52 p-2 shadow">
       <li @click="modalStore.handleCategoryModal(category, true)" class="hover:bg-gray-700 rounded-lg"><a>Edit</a></li>
-      <li class="hover:bg-gray-700 rounded-lg"><a>Delete</a></li>
+      <li @click="categoriesStore.deleteCategory(category.id)" class="hover:bg-gray-700 rounded-lg"><a>Delete</a></li>
     </ul>
   </div>
 </template>

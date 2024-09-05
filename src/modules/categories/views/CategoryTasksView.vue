@@ -2,14 +2,13 @@
 import CheckCircleIcon from '@/modules/common/icons/CheckCircleIcon.vue';
 import TaskForm from '@/modules/tasks/components/TaskForm.vue';
 import { useCategoriesStore } from '@/modules/categories/stores/categories.store';
-import { onMounted, reactive, ref, watch } from 'vue';
+import { onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import CreateButton from '@/modules/common/components/CreateButton.vue'
 import { useModalStore } from '@/modules/common/stores/modal.store'
 import CategoryForm from '@/modules/categories/components/CategoryForm.vue'
 import AlertComponent from '@/modules/categories/components/AlertComponent.vue'
 import CategoryDropDownComponent from '@/modules/categories/components/CategoryDropDownComponent.vue';
-import type { Category } from '@/modules/categories/interfaces/category.interface';
 
 const route = useRoute();
 const categoriesStore = useCategoriesStore();
