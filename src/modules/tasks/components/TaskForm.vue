@@ -23,6 +23,7 @@ const handleSubmit = async () => {
 <template>
   <modal
     :open="modalStore.isTaskModal"
+    title="New Task"
     @handle-click-modal="modalStore.handleTaskModal"
     @handle-submit="handleSubmit"
   >

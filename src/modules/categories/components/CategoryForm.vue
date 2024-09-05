@@ -23,6 +23,7 @@ const handleSubmit = async () => {
 <template>
   <modal
     :open="modalStore.isCategoryModal"
+    title="New Category"
     @handle-click-modal="modalStore.handleCategoryModal"
     @handle-submit="handleSubmit"
   >
