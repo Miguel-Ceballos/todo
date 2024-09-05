@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import type { Task } from '@/modules/tasks/interfaces/task.interface';
+import type { Category, Task } from '@/modules/tasks/interfaces/task.interface';
 import { useTaskFormStore } from '@/modules/tasks/store/task-form.store';
 import { useCategoryFormStore } from '@/modules/categories/stores/category-form.store'
 
@@ -26,7 +26,7 @@ export const useModalStore = defineStore('modal', () => {
     }
   };
 
-  const handleCategoryModal = (form?: Task | null, isUpd: boolean = false) => {
+  const handleCategoryModal = (form?: Task | Category | null, isUpd: boolean = false) => {
     if (form) {
       isUpdate.value = isUpd;
       Object.assign(categoryFormStore.form, form);

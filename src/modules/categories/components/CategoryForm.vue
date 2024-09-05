@@ -3,7 +3,6 @@
 import { useCategoriesStore } from '@/modules/categories/stores/categories.store'
 import Modal from '@/modules/common/components/Modal.vue'
 import { useCategoryFormStore } from '@/modules/categories/stores/category-form.store'
-import { useCategoryModalStore } from '@/modules/common/stores/category-modal.store'
 import { useModalStore } from '@/modules/common/stores/modal.store'
 
 const categoryStore = useCategoriesStore()
@@ -12,7 +11,7 @@ const categoryFormStore = useCategoryFormStore()
 
 const handleSubmit = async () => {
   if (modalStore.isUpdate === true) {
-    await categoryStore.postCategory(categoryFormStore.form);
+    await categoryStore.updateCategory(categoryFormStore.form);
   } else {
     await categoryStore.postCategory(categoryFormStore.form);
   }

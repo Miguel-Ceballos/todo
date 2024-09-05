@@ -6,7 +6,6 @@ import CalendarDaysIcon from '@/modules/common/icons/CalendarDaysIcon.vue';
 import CheckCircleIcon from '@/modules/common/icons/CheckCircleIcon.vue';
 import HashtagIcon from '@/modules/common/icons/HashtagIcon.vue';
 import { useCategoriesStore } from '@/modules/categories/stores/categories.store';
-import { useCategoryModalStore } from '@/modules/common/stores/category-modal.store'
 import { useModalStore } from '@/modules/common/stores/modal.store'
 
 const categories = useCategoriesStore();

@@ -2,30 +2,28 @@
 import CheckCircleIcon from '@/modules/common/icons/CheckCircleIcon.vue';
 import TaskForm from '@/modules/tasks/components/TaskForm.vue';
 import { useCategoriesStore } from '@/modules/categories/stores/categories.store';
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, reactive, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import CreateButton from '@/modules/common/components/CreateButton.vue'
 import { useModalStore } from '@/modules/common/stores/modal.store'
 import CategoryForm from '@/modules/categories/components/CategoryForm.vue'
 import AlertComponent from '@/modules/categories/components/AlertComponent.vue'
+import CategoryDropDownComponent from '@/modules/categories/components/CategoryDropDownComponent.vue';
+import type { Category } from '@/modules/categories/interfaces/category.interface';
 
 const route = useRoute();
 const categoriesStore = useCategoriesStore();
 const modalStore = useModalStore();
 
-const categoryTasks = ref([]);
-const category = ref();
-
 //TODO: Buscar solución para solo ejecutar las peticiones una sola vez.
 
 watch(() => route.params.id, async () => {
-  category.value = await categoriesStore.getCategory(route.params.id);
-  categoryTasks.value = await categoriesStore.getCategoryTasks(route.params.id);
+  await categoriesStore.getValues(route.params.id);
 })
 
 onMounted(async () => {
-  category.value = await categoriesStore.getCategory(route.params.id);
-  categoryTasks.value = await categoriesStore.getCategoryTasks(route.params.id);
+  categoriesStore.category = await categoriesStore.getCategory(route.params.id);
+  categoriesStore.categoryTasks = await categoriesStore.getCategoryTasks(route.params.id);
 });
 </script>
 
@@ -34,10 +32,13 @@ onMounted(async () => {
   <category-form v-if="modalStore.isCategoryModal" />
   <div class="space-y-6">
     <div class="flex space-x-4 justify-between items-end">
-      <h2 class="text-2xl text-gray-300 md:text-3xl font-bold">{{category}}</h2>
+      <h2 class="text-2xl text-gray-300 md:text-3xl font-bold flex items-center gap-4">
+        {{categoriesStore.category.title}}
+        <category-drop-down-component  :category="categoriesStore.category"/>
+      </h2>
       <div class="flex gap-2">
         <check-circle-icon size="6" />
-        <p class="text-md">{{ categoryTasks.length }} Tasks</p>
+        <p class="text-md">{{ categoriesStore.categoryTasks.length }} Tasks</p>
       </div>
     </div>
     <div>
@@ -46,7 +47,7 @@ onMounted(async () => {
     </div>
     <ul>
       <li
-        v-for="task in categoryTasks"
+        v-for="task in categoriesStore.categoryTasks"
         :key="task.id"
         class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 py-4 rounded-t-md group transition-duration-200"
       >
