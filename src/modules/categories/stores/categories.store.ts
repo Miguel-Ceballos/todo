@@ -68,6 +68,7 @@ export const useCategoriesStore = defineStore('categories', () => {
 
     if (response.data.errors) {
       errorsStore.getErrors(response);
+      return;
     }
 
     if (response.status === 201) {
@@ -89,6 +90,7 @@ export const useCategoriesStore = defineStore('categories', () => {
 
     if (response.data.errors) {
       errorsStore.getErrors(response);
+      return;
     }
 
     if (response.status === 200) {

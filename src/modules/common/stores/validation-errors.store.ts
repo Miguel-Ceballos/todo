@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import type { CategoryError } from '@/modules/categories/interfaces/category.interface';
 
 export const useValidationErrorsStore = defineStore('validation-errors', () => {
   const errors = ref<string[]>([]);

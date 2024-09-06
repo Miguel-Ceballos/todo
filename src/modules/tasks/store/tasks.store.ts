@@ -72,6 +72,7 @@ export const useTasksStore = defineStore('tasks', () => {
 
     if (response.data.errors) {
       errorsStore.getErrors(response);
+      return;
     }
 
     if (response.status === 201) {
@@ -101,12 +102,10 @@ export const useTasksStore = defineStore('tasks', () => {
       },
     });
 
+    console.log(response);
     if (response.data.errors) {
-      const errors: string[] = [];
-      response.data.errors.forEach((error: { message: string }) => {
-        errors.push(error.message);
-      });
-      return errors;
+      errorsStore.getErrors(response);
+      return;
     }
 
     if (response.status === 200) {
