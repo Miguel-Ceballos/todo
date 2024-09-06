@@ -5,10 +5,13 @@ import type { TasksListResponse } from '@/modules/tasks/interfaces/tasks-list.re
 import type { Task } from '@/modules/tasks/interfaces/task.interface';
 import { useModalStore } from '@/modules/common/stores/modal.store';
 import { useAlertStore } from '@/modules/common/stores/alert.store'
+import { useValidationErrorsStore } from '@/modules/common/stores/validation-errors.store';
 
 export const useTasksStore = defineStore('tasks', () => {
   const modalStore = useModalStore();
   const alertStore = useAlertStore();
+  const errorsStore = useValidationErrorsStore();
+
   const tasks = ref<Task[]>([]);
 
   const getTasks = async (): Promise<Task[]> => {
@@ -48,7 +51,6 @@ export const useTasksStore = defineStore('tasks', () => {
   };
 
   const postTasks = async (form: Task) => {
-    console.log('hello world');
     const response = await todoApi.post('/tasks', {
       data: {
         type: 'tasks',
@@ -69,19 +71,14 @@ export const useTasksStore = defineStore('tasks', () => {
     });
 
     if (response.data.errors) {
-      const errors: string[] = [];
-      response.data.errors.forEach((error: { message: string }) => {
-        errors.push(error.message);
-      });
-      return errors;
+      errorsStore.getErrors(response);
     }
 
     if (response.status === 201) {
       tasks.value = await getTasks();
       modalStore.handleTaskModal();
+      alertStore.handleClickAlert('Task created successfully!');
     }
-
-    alertStore.handleClickAlert('Task created successfully!');
   };
 
   const updateTask = async (form: Task) => {

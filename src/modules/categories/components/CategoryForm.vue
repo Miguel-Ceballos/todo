@@ -4,10 +4,12 @@ import { useCategoriesStore } from '@/modules/categories/stores/categories.store
 import Modal from '@/modules/common/components/Modal.vue'
 import { useCategoryFormStore } from '@/modules/categories/stores/category-form.store'
 import { useModalStore } from '@/modules/common/stores/modal.store'
+import { useValidationErrorsStore } from '@/modules/common/stores/validation-errors.store';
 
 const categoryStore = useCategoriesStore()
 const modalStore = useModalStore()
 const categoryFormStore = useCategoryFormStore()
+const errorsStore = useValidationErrorsStore()
 
 const handleSubmit = async () => {
   if (modalStore.isUpdate === true) {
@@ -35,7 +37,7 @@ const handleSubmit = async () => {
           class="input input-bordered input-accent w-full"
           v-model="categoryFormStore.form.title"
         />
-        <p v-if="categoryStore?.categoryErrors['data.attributes.title']" class="text-red-600 text-xs font-semibold">{{ categoryStore.categoryErrors['data.attributes.title'] }}</p>
+        <p v-if="errorsStore?.errors['data.attributes.title']" class="text-red-600 text-xs font-semibold">{{ errorsStore.errors['data.attributes.title'] }}</p>
       </div>
     </template>
 

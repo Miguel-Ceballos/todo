@@ -5,11 +5,13 @@ import { useTasksStore } from '@/modules/tasks/store/tasks.store';
 import { useModalStore } from '@/modules/common/stores/modal.store';
 import { useTaskFormStore } from '@/modules/tasks/store/task-form.store';
 import TrashIcon from '@/modules/common/icons/TrashIcon.vue'
+import { useValidationErrorsStore } from '@/modules/common/stores/validation-errors.store';
 
 const categoryStore = useCategoriesStore();
 const tasksStore = useTasksStore();
 const modalStore = useModalStore();
 const taskFormStore = useTaskFormStore();
+const errorsStore = useValidationErrorsStore();
 
 const handleSubmit = async () => {
   if (modalStore.isUpdate === true) {
@@ -35,8 +37,8 @@ const handleSubmit = async () => {
           placeholder="Task title"
           class="input input-bordered input-accent w-full"
           v-model="taskFormStore.form.title"
-          required
         />
+        <p v-if="errorsStore?.errors['data.attributes.title']" class="text-red-600 text-xs font-semibold">{{ errorsStore.errors['data.attributes.title'] }}</p>
       </div>
       <div class="space-y-1">
         <span class="label-text">Description</span>
@@ -48,15 +50,16 @@ const handleSubmit = async () => {
       </div>
       <div class="space-y-1">
         <span class="label-text">Status</span>
-        <select class="select select-accent w-full" v-model="taskFormStore.form.status" required>
+        <select class="select select-accent w-full" v-model="taskFormStore.form.status" >
           <option selected value="P">To Do</option>
           <option value="D">In Progress</option>
           <option value="C">Done</option>
         </select>
+        <p v-if="errorsStore?.errors['data.attributes.status']" class="text-red-600 text-xs font-semibold">{{ errorsStore.errors['data.attributes.status'] }}</p>
       </div>
       <div class="space-y-1">
         <span class="label-text">Category</span>
-        <select class="select select-accent w-full" v-model="taskFormStore.form.category.id" required>
+        <select class="select select-accent w-full" v-model="taskFormStore.form.category.id" >
           <option selected :value="0">Select category</option>
           <option
             v-for="category in categoryStore.categories"
@@ -66,6 +69,7 @@ const handleSubmit = async () => {
             {{ category.title }}
           </option>
         </select>
+        <p v-if="errorsStore?.errors['data.relationships.category.data.id']" class="text-red-600 text-xs font-semibold">{{ errorsStore.errors['data.relationships.category.data.id'] }}</p>
       </div>
     </template>
 

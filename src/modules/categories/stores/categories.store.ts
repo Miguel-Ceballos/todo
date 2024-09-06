@@ -1,21 +1,24 @@
 import { defineStore } from 'pinia';
 import { onMounted, ref } from 'vue';
 import { todoApi } from '@/modules/tasks/api/tasksApi';
-import type { Category, CategoryError } from '@/modules/categories/interfaces/category.interface';
+import type { Category } from '@/modules/categories/interfaces/category.interface';
 import type { CategoriesListResponse } from '@/modules/categories/interfaces/categories-list.response';
 import type { CategoryTask } from '@/modules/tasks/interfaces/task.interface';
 import type { TasksListResponse } from '@/modules/tasks/interfaces/tasks-list.response';
 import { type RouteParamValue, useRouter } from 'vue-router';
 import { useModalStore } from '@/modules/common/stores/modal.store';
 import { useAlertStore } from '@/modules/common/stores/alert.store';
+import { useValidationErrorsStore } from '@/modules/common/stores/validation-errors.store';
 
 export const useCategoriesStore = defineStore('categories', () => {
-  const categories = ref<Category[]>([]);
+
   const modalStore = useModalStore();
   const alertStore = useAlertStore();
-  const router = useRouter();
-  const categoryErrors = ref<string[]>([]);
+  const errorsStore = useValidationErrorsStore();
 
+  const router = useRouter();
+
+  const categories = ref<Category[]>([]);
   const categoryTasks = ref([]);
   const category = ref(<Category>{});
 
@@ -64,18 +67,14 @@ export const useCategoriesStore = defineStore('categories', () => {
     });
 
     if (response.data.errors) {
-      response.data.errors.forEach((error: CategoryError) => {
-        categoryErrors.value[error.source] = error.message;
-      });
-      console.log(categoryErrors.value);
-      return;
+      errorsStore.getErrors(response);
     }
 
     if (response.status === 201) {
       categories.value = await getCategories();
       modalStore.handleCategoryModal();
+      alertStore.handleClickAlert('Category created successfully');
     }
-    alertStore.handleClickAlert('Category created successfully');
   };
 
   const updateCategory = async (form: Category) => {
@@ -89,19 +88,15 @@ export const useCategoriesStore = defineStore('categories', () => {
     });
 
     if (response.data.errors) {
-      response.data.errors.forEach((error: CategoryError) => {
-        categoryErrors.value[error.source] = error.message;
-      });
-      console.log(categoryErrors.value);
-      return;
+      errorsStore.getErrors(response);
     }
 
     if (response.status === 200) {
       categories.value = await getCategories();
       category.value = await getCategory(response.data.data.id);
       modalStore.handleCategoryModal();
+      alertStore.handleClickAlert('Category updated successfully');
     }
-    alertStore.handleClickAlert('Category updated successfully');
   };
 
   const deleteCategory = async (id: Category['id']) => {
@@ -132,7 +127,6 @@ export const useCategoriesStore = defineStore('categories', () => {
     category,
     categories,
     categoryTasks,
-    categoryErrors,
     getValues,
     getCategory,
     postCategory,
