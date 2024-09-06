@@ -34,8 +34,8 @@ const handleSubmit = async () => {
           placeholder="Category title"
           class="input input-bordered input-accent w-full"
           v-model="categoryFormStore.form.title"
-          required
         />
+        <p v-if="categoryStore?.categoryErrors['data.attributes.title']" class="text-red-600 text-xs font-semibold">{{ categoryStore.categoryErrors['data.attributes.title'] }}</p>
       </div>
     </template>
 

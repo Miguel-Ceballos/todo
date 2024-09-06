@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { onMounted, ref } from 'vue';
 import { todoApi } from '@/modules/tasks/api/tasksApi';
-import type { Category } from '@/modules/categories/interfaces/category.interface';
+import type { Category, CategoryError } from '@/modules/categories/interfaces/category.interface';
 import type { CategoriesListResponse } from '@/modules/categories/interfaces/categories-list.response';
 import type { CategoryTask } from '@/modules/tasks/interfaces/task.interface';
 import type { TasksListResponse } from '@/modules/tasks/interfaces/tasks-list.response';
@@ -14,6 +14,7 @@ export const useCategoriesStore = defineStore('categories', () => {
   const modalStore = useModalStore();
   const alertStore = useAlertStore();
   const router = useRouter();
+  const categoryErrors = ref<string[]>([]);
 
   const categoryTasks = ref([]);
   const category = ref(<Category>{});
@@ -63,11 +64,11 @@ export const useCategoriesStore = defineStore('categories', () => {
     });
 
     if (response.data.errors) {
-      const errors: string[] = [];
-      response.data.errors.forEach((error: { message: string }) => {
-        errors.push(error.message);
+      response.data.errors.forEach((error: CategoryError) => {
+        categoryErrors.value[error.source] = error.message;
       });
-      return errors;
+      console.log(categoryErrors.value);
+      return;
     }
 
     if (response.status === 201) {
@@ -88,11 +89,11 @@ export const useCategoriesStore = defineStore('categories', () => {
     });
 
     if (response.data.errors) {
-      const errors: string[] = [];
-      response.data.errors.forEach((error: { message: string }) => {
-        errors.push(error.message);
+      response.data.errors.forEach((error: CategoryError) => {
+        categoryErrors.value[error.source] = error.message;
       });
-      return errors;
+      console.log(categoryErrors.value);
+      return;
     }
 
     if (response.status === 200) {
@@ -115,9 +116,9 @@ export const useCategoriesStore = defineStore('categories', () => {
     await router.push({ name: 'home' });
     categories.value = await getCategories();
     alertStore.handleClickAlert('Category deleted successfully');
-  }
+  };
 
-  async function getValues(id: string | RouteParamValue[]){
+  async function getValues(id: string | RouteParamValue[]) {
     category.value = await getCategory(id);
     // @ts-ignore
     categoryTasks.value = await getCategoryTasks(id);
@@ -131,6 +132,7 @@ export const useCategoriesStore = defineStore('categories', () => {
     category,
     categories,
     categoryTasks,
+    categoryErrors,
     getValues,
     getCategory,
     postCategory,

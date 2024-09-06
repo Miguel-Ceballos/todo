@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
-import type { Category } from '@/modules/tasks/interfaces/task.interface'
+import type { Category } from '@/modules/categories/interfaces/category.interface';
 
 export const useCategoryFormStore = defineStore('category-form', () => {
   // @ts-ignore
@@ -9,6 +9,7 @@ export const useCategoryFormStore = defineStore('category-form', () => {
   const clearForm = () => {
     form.id = 0;
     form.title = '';
+    form.slug = '';
   };
 
   return {
