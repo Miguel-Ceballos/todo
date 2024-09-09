@@ -24,9 +24,19 @@ const router = createRouter({
           path: 'tasks/completed',
           name: 'completed-tasks',
           component: () => import('@/modules/tasks/views/PendingTasksView.vue')
+        },
+        {
+          path: '/login',
+          name: 'login',
+          component: () => import('@/modules/auth/views/LogInView.vue'),
+        },
+        {
+          path: '/register',
+          name: 'register',
+          component: () => import('@/modules/auth/views/RegisterView.vue'),
         }
-      ]
-    }
+      ],
+    },
   ]
 })
 
