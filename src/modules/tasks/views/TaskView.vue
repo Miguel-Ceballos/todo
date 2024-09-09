@@ -16,18 +16,16 @@ const modalStore = useModalStore();
   <alert-component />
   <category-form v-if="modalStore.isCategoryModal" />
   <div class="space-y-6">
-    <div class="flex space-x-4 justify-between items-end">
-      <h2 class="text-2xl text-gray-300 md:text-3xl font-bold">Tasks</h2>
+    <div class="flex space-x-4 justify-between items-end px-4">
+      <h2 class="text-2xl text-gray-300 md:text-3xl font-extrabold">Tasks <span class="font-normal text-lg text-gray-500"> · ({{tasksStore.tasks.length}})</span></h2>
       <div class="flex gap-2">
-        <check-circle-icon size="6" />
-        <p class="text-md">{{ tasksStore.tasks.length }} Tasks</p>
+        <create-button @click="modalStore.handleTaskModal(null, false)" text="New Task" />
+        <task-form v-if="modalStore.isTaskModal"/>
       </div>
     </div>
     <div>
-      <create-button @click="modalStore.handleTaskModal(null, false)" text="New Task" />
-      <task-form v-if="modalStore.isTaskModal"/>
     </div>
-    <ul v-if="tasksStore.tasks">
+    <ul v-if="tasksStore.tasks" class="p-4 bg-[#121621] rounded-xl">
       <li
         v-for="task in tasksStore.tasks"
         :key="task.id"

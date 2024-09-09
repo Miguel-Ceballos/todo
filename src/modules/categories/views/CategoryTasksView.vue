@@ -30,21 +30,20 @@ onMounted(async () => {
   <alert-component />
   <category-form v-if="modalStore.isCategoryModal" />
   <div class="space-y-6">
-    <div class="flex space-x-4 justify-between items-end">
+    <div class="flex space-x-4 justify-between items-end px-4">
       <h2 class="text-2xl text-gray-300 md:text-3xl font-bold flex items-center gap-4">
         {{categoriesStore.category.title}}
         <category-drop-down-component  :category="categoriesStore.category"/>
       </h2>
       <div class="flex gap-2">
-        <check-circle-icon size="6" />
-        <p class="text-md">{{ categoriesStore.categoryTasks.length }} Tasks</p>
+        <create-button @click="modalStore.handleTaskModal(null, false)" text="New Task" />
+        <task-form v-if="modalStore.isTaskModal"/>
       </div>
     </div>
     <div>
-      <create-button @click="modalStore.handleTaskModal(null, false)" text="New Task" />
-      <task-form v-if="modalStore.isTaskModal"/>
+
     </div>
-    <ul>
+    <ul class="p-4 bg-[#121621] rounded-xl">
       <li
         v-for="task in categoriesStore.categoryTasks"
         :key="task.id"
