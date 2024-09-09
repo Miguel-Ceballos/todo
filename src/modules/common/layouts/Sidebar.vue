@@ -64,6 +64,18 @@ const modalStore = useModalStore();
         </router-link>
       </li>
     </ul>
+    <ul class="menu fixed bottom-0 min-w-72">
+      <li class="hover:bg-zincs-800 hover:rounded-md">
+        <a class="text-gray-400 hover:text-gray-100">
+          Log In
+        </a>
+      </li>
+      <li class="hover:bg-zincs-800 hover:rounded-md">
+        <a class="text-gray-400 hover:text-gray-100">
+          Register
+        </a>
+      </li>
+    </ul>
   </div>
 </template>
 
