@@ -1,12 +1,19 @@
-import axios from 'axios'
-
-const apiToken = '1|R5VNrFZLxX4z0EIvX8oCSATtq8I6sZ4ZDdCp5oNl9682bc0c'
+import axios from 'axios';
 
 const todoApi = axios.create({
-  baseURL: 'http://localhost/api/v1',
-  headers: {
-    'Authorization': 'Bearer ' + apiToken
-  }
-})
+  baseURL: import.meta.env.VITE_TODO_API_URL,
+});
 
-export { todoApi }
+const authApi = axios.create({
+  baseURL: import.meta.env.VITE_TODO_AUTH_API_URL,
+});
+
+todoApi.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+export { todoApi, authApi };
