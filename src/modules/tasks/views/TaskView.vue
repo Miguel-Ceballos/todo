@@ -2,14 +2,13 @@
 import CheckCircleIcon from '@/modules/common/icons/CheckCircleIcon.vue';
 import TaskForm from '@/modules/tasks/components/TaskForm.vue';
 import { useTasksStore } from '@/modules/tasks/store/tasks.store';
-import CreateButton from '@/modules/common/components/CreateButton.vue'
-import { useModalStore } from '@/modules/common/stores/modal.store'
-import AlertComponent from '@/modules/categories/components/AlertComponent.vue'
-import CategoryForm from '@/modules/categories/components/CategoryForm.vue'
+import CreateButton from '@/modules/common/components/CreateButton.vue';
+import { useModalStore } from '@/modules/common/stores/modal.store';
+import AlertComponent from '@/modules/categories/components/AlertComponent.vue';
+import CategoryForm from '@/modules/categories/components/CategoryForm.vue';
 
 const tasksStore = useTasksStore();
 const modalStore = useModalStore();
-
 </script>
 
 <template>
@@ -17,16 +16,19 @@ const modalStore = useModalStore();
   <category-form v-if="modalStore.isCategoryModal" />
   <div class="space-y-6">
     <div class="flex space-x-4 justify-between items-end px-4">
-      <h2 class="text-2xl text-gray-300 md:text-3xl font-extrabold">Tasks <span class="font-normal text-lg text-gray-500"> · ({{tasksStore.tasks.length}})</span></h2>
+      <h2 class="text-2xl text-gray-300 md:text-3xl font-extrabold">
+        Tasks
+        <span class="font-normal text-lg text-gray-500"> · ({{ tasksStore.tasks.length }})</span>
+      </h2>
       <div class="flex gap-2">
         <create-button @click="modalStore.handleTaskModal(null, false)" text="New Task" />
-        <task-form v-if="modalStore.isTaskModal"/>
+        <task-form v-if="modalStore.isTaskModal" />
       </div>
     </div>
-    <div>
-    </div>
-    <ul v-if="tasksStore.tasks" class="p-4 bg-[#121621] rounded-xl">
+    <div></div>
+    <ul class="p-4 bg-[#121621] rounded-xl">
       <li
+        v-if="tasksStore.tasks.length > 0"
         v-for="task in tasksStore.tasks"
         :key="task.id"
         @click="modalStore.handleTaskModal(task, true)"
@@ -54,11 +56,7 @@ const modalStore = useModalStore();
           </div>
         </div>
       </li>
-    </ul>
-    <ul v-else>
-      <li>
-        <p>No hay tareas existentes.</p>
-      </li>
+      <li v-else class="text-center">There are no existing tasks.</li>
     </ul>
   </div>
 </template>

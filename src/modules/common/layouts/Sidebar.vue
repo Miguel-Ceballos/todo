@@ -55,7 +55,7 @@ const modalStore = useModalStore();
       <li class="hover:bg-zincs-800 hover:rounded-md group">
         <create-button @click="modalStore.handleCategoryModal(null, false)" text="New Category" />
       </li>
-      <li v-for="category in categories.categories" class="hover:bg-zincs-800 hover:rounded-md">
+      <li v-if="categories.categories.length > 0" v-for="category in categories.categories" class="hover:bg-zincs-800 hover:rounded-md">
         <router-link
           :to="{ name: 'category-tasks', params: { id: category.id } }"
           class="text-gray-400 hover:text-gray-100"
@@ -64,6 +64,7 @@ const modalStore = useModalStore();
           {{ category.title }}
         </router-link>
       </li>
+      <li v-else class="text-center">There are no existing categories</li>
     </ul>
     <ul class="menu fixed bottom-0 min-w-72">
       <li class="hover:bg-zincs-800 hover:rounded-md">

@@ -45,6 +45,7 @@ onMounted(async () => {
     </div>
     <ul class="p-4 bg-[#121621] rounded-xl">
       <li
+        v-if="categoriesStore.categoryTasks.length > 0"
         v-for="task in categoriesStore.categoryTasks"
         :key="task.id"
         class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 py-4 rounded-t-md group transition-duration-200"
@@ -68,6 +69,7 @@ onMounted(async () => {
           </div>
         </div>
       </li>
+      <li v-else class="text-center">There are no existing tasks.</li>
     </ul>
   </div>
 </template>
