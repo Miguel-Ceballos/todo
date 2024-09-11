@@ -1,5 +1,6 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Layout from '@/modules/common/layouts/Layout.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import Layout from '@/modules/common/layouts/Layout.vue';
+import { authRoutes } from '@/modules/auth/routes';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,7 +14,7 @@ const router = createRouter({
         {
           path: 'tasks',
           name: 'tasks',
-          component: () => import('@/modules/tasks/views/TaskView.vue')
+          component: () => import('@/modules/tasks/views/TaskView.vue'),
         },
         {
           path: 'tasks/:id',
@@ -23,21 +24,13 @@ const router = createRouter({
         {
           path: 'tasks/completed',
           name: 'completed-tasks',
-          component: () => import('@/modules/tasks/views/PendingTasksView.vue')
+          component: () => import('@/modules/tasks/views/PendingTasksView.vue'),
         },
-        {
-          path: '/login',
-          name: 'login',
-          component: () => import('@/modules/auth/views/LogInView.vue'),
-        },
-        {
-          path: '/register',
-          name: 'register',
-          component: () => import('@/modules/auth/views/RegisterView.vue'),
-        }
       ],
     },
-  ]
-})
+    // Auth Routes
+    authRoutes,
+  ],
+});
 
-export default router
+export default router;
