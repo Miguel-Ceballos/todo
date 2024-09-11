@@ -1,17 +1,24 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+
+import { useAuthStore } from '@/modules/auth/stores/auth.store';
+
+const authStore = useAuthStore();
+
+</script>
 
 <template>
   <div
-    class="space-y-6 p-20 bg-[#121621] mx-auto flex flex-col items-center justify-center rounded-xl"
+    class="space-y-6 p-20 bg-[#121621] flex flex-col items-center justify-center rounded-xl w-[35rem]"
   >
     <div class="flex space-x-4 justify-between items-end">
       <h2 class="text-2xl text-gray-300 md:text-3xl font-extrabold">Log In!</h2>
     </div>
     <div class="w-full">
-      <form method="dialog" class="space-y-4" @submit.prevent="$emit('handle-submit')">
+      <form method="dialog" class="space-y-4" @submit.prevent="authStore.login(authStore.LoginForm)">
         <div class="space-y-1">
           <span class="label-text">Email</span>
           <input
+            v-model="authStore.LoginForm.email"
             type="text"
             placeholder="example@example.com"
             class="input input-bordered input-accent w-full"
@@ -21,6 +28,7 @@
         <div class="space-y-1">
           <span class="label-text">Password</span>
           <input
+            v-model="authStore.LoginForm.password"
             type="password"
             placeholder="Password"
             class="input input-bordered input-accent w-full"

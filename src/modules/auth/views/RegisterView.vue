@@ -3,7 +3,7 @@
 
 <template>
   <div
-    class="space-y-6 p-20 bg-[#121621] mx-auto flex flex-col items-center justify-center rounded-xl"
+    class="space-y-6 p-20 bg-[#121621] flex flex-col items-center justify-center rounded-xl w-[35rem]"
   >
     <div class="flex space-x-4 justify-between items-end">
       <h2 class="text-2xl text-gray-300 md:text-3xl font-extrabold">Register!</h2>
