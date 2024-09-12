@@ -1,8 +1,11 @@
 <script setup lang="ts">
 
 import { useAuthStore } from '@/modules/auth/stores/auth.store';
+import { ref } from 'vue';
+import { useValidationErrorsStore } from '@/modules/common/stores/validation-errors.store';
 
 const authStore = useAuthStore();
+const errorsStore = useValidationErrorsStore()
 
 </script>
 
@@ -19,20 +22,24 @@ const authStore = useAuthStore();
           <span class="label-text">Email</span>
           <input
             v-model="authStore.LoginForm.email"
+            ref="emailInputRef"
             type="text"
             placeholder="example@example.com"
             class="input input-bordered input-accent w-full"
           />
+          <p v-if="errorsStore?.errors['email']" class="text-red-600 text-xs font-semibold">{{ errorsStore.errors['email'] }}</p>
         </div>
 
         <div class="space-y-1">
           <span class="label-text">Password</span>
           <input
             v-model="authStore.LoginForm.password"
+            ref="passwordInputRef"
             type="password"
             placeholder="Password"
             class="input input-bordered input-accent w-full"
           />
+          <p v-if="errorsStore?.errors['password']" class="text-red-600 text-xs font-semibold">{{ errorsStore.errors['password'] }}</p>
         </div>
 
         <div class="flex justify-end">
