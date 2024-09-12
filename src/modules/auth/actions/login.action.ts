@@ -1,9 +1,9 @@
 import { authApi } from '@/modules/tasks/api/tasksApi';
 import type { AuthResponse } from '@/modules/auth/interfaces/auth.response';
 import { isAxiosError } from 'axios';
-import { useValidationErrorsStore } from '@/modules/common/stores/validation-errors.store';
+// import { useValidationErrorsStore } from '@/modules/common/stores/validation-errors.store';
 
-const errorsStore = useValidationErrorsStore()
+// const errorsStore = useValidationErrorsStore()
 
 export const loginAction = async (form) => {
   try {
@@ -13,7 +13,8 @@ export const loginAction = async (form) => {
     });
 
     if (response.data.errors) {
-      errorsStore.getErrors(response);
+      // errorsStore.getErrors(response);
+      console.log(response.data.errors);
       return;
     }
 
