@@ -9,9 +9,12 @@ import { useCategoriesStore } from '@/modules/categories/stores/categories.store
 import { useModalStore } from '@/modules/common/stores/modal.store';
 import UserIcon from '@/modules/common/icons/UserIcon.vue';
 import UserPlusIcon from '@/modules/common/icons/UserPlusIcon.vue';
+import LogOutIcon from '@/modules/common/icons/LogOutIcon.vue';
+import { useAuthStore } from '@/modules/auth/stores/auth.store';
 
 const categories = useCategoriesStore();
 const modalStore = useModalStore();
+const authStore = useAuthStore();
 </script>
 
 <template>
@@ -55,7 +58,11 @@ const modalStore = useModalStore();
       <li class="hover:bg-zincs-800 hover:rounded-md group">
         <create-button @click="modalStore.handleCategoryModal(null, false)" text="New Category" />
       </li>
-      <li v-if="categories.categories.length > 0" v-for="category in categories.categories" class="hover:bg-zincs-800 hover:rounded-md">
+      <li
+        v-if="categories.categories.length > 0"
+        v-for="category in categories.categories"
+        class="hover:bg-zincs-800 hover:rounded-md"
+      >
         <router-link
           :to="{ name: 'category-tasks', params: { id: category.id } }"
           class="text-gray-400 hover:text-gray-100"
@@ -67,23 +74,11 @@ const modalStore = useModalStore();
       <li v-else class="text-center">There are no existing categories</li>
     </ul>
     <ul class="menu fixed bottom-0 min-w-72">
-      <li class="hover:bg-zincs-800 hover:rounded-md">
-        <router-link
-          :to="{name: 'login'}"
-          class="text-gray-400 hover:text-gray-100"
-        >
-          <user-icon />
-          Log In
-        </router-link>
-      </li>
-      <li class="hover:bg-zincs-800 hover:rounded-md">
-        <router-link
-          :to="{name: 'register'}"
-          class="text-gray-400 hover:text-gray-100"
-        >
-          <user-plus-icon />
-          Register
-        </router-link>
+      <li @click="authStore.logout()" class="hover:bg-zincs-800 hover:rounded-md">
+        <button class="text-gray-400 hover:text-gray-100">
+          <log-out-icon />
+          Log Out
+        </button>
       </li>
     </ul>
   </div>
