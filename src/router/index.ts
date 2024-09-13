@@ -21,7 +21,7 @@ const router = createRouter({
           component: () => import('@/modules/tasks/views/TaskView.vue'),
         },
         {
-          path: '/:id',
+          path: ':id',
           name: 'category-tasks',
           component: () => import('@/modules/categories/views/CategoryTasksView.vue'),
         },
