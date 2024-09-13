@@ -1,11 +1,12 @@
 import { authApi } from '@/modules/tasks/api/tasksApi';
 import type { AuthResponse } from '@/modules/auth/interfaces/auth.response';
 import { isAxiosError } from 'axios';
+import type { LoginParameters } from '@/modules/auth/stores/auth.store';
 // import { useValidationErrorsStore } from '@/modules/common/stores/validation-errors.store';
 
 // const errorsStore = useValidationErrorsStore()
 
-export const loginAction = async (form) => {
+export const loginAction = async (form: LoginParameters) => {
   try {
     const response = await authApi.post<AuthResponse>('/login', {
       email: form.email,
