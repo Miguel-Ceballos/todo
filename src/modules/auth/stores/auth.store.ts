@@ -2,13 +2,14 @@ import { defineStore } from 'pinia';
 import { computed, reactive, ref } from 'vue';
 import { AuthStatus } from '@/modules/auth/interfaces/auth-status.enum';
 import { checkAuthAction, loginAction } from '@/modules/auth/actions';
+import { registerAction } from '@/modules/auth/actions/register.action';
 
-interface LoginParameters {
+export interface LoginParameters {
   email: string;
   password: string;
 }
 
-interface RegisterParameters {
+export interface RegisterParameters {
   name: string;
   email: string;
   password: string;
@@ -31,6 +32,23 @@ export const useAuthStore = defineStore('auth', () => {
         return false;
       }
       localStorage.setItem('token', loginResponse.token);
+      token.value = localStorage.getItem('token');
+      authStatus.value = AuthStatus.Authenticated;
+      return true;
+    } catch (error) {
+      console.log(error);
+      return logout();
+    }
+  };
+
+  const register = async (form: RegisterParameters) => {
+    try {
+      const registerResponse = await registerAction(form);
+      if (!registerResponse.ok) {
+        logout();
+        return false;
+      }
+      localStorage.setItem('token', registerResponse.token);
       token.value = localStorage.getItem('token');
       authStatus.value = AuthStatus.Authenticated;
       return true;
@@ -75,6 +93,7 @@ export const useAuthStore = defineStore('auth', () => {
     //Actions
     login,
     logout,
+    register,
     checkAuthStatus,
   };
 });

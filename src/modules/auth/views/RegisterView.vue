@@ -1,4 +1,9 @@
 <script setup lang="ts">
+
+import { useAuthStore } from '@/modules/auth/stores/auth.store';
+
+const authStore = useAuthStore();
+
 </script>
 
 <template>
@@ -9,10 +14,11 @@
       <h2 class="text-2xl text-gray-300 md:text-3xl font-extrabold">Register!</h2>
     </div>
     <div class="w-full">
-      <form method="dialog" class="space-y-4">
+      <form method="dialog" class="space-y-4" @submit.prevent="authStore.register(authStore.RegisterForm)">
         <div class="space-y-1">
           <span class="label-text">Name</span>
           <input
+            v-model="authStore.RegisterForm.name"
             type="text"
             placeholder="Name"
             class="input input-bordered input-accent w-full"
@@ -22,6 +28,7 @@
         <div class="space-y-1">
           <span class="label-text">Email</span>
           <input
+            v-model="authStore.RegisterForm.email"
             type="text"
             placeholder="example@example.com"
             class="input input-bordered input-accent w-full"
@@ -31,6 +38,7 @@
         <div class="space-y-1">
           <span class="label-text">Password</span>
           <input
+            v-model="authStore.RegisterForm.password"
             type="password"
             placeholder="Password"
             class="input input-bordered input-accent w-full"
@@ -39,7 +47,7 @@
 
         <div class="flex justify-end">
           <div class="space-x-4">
-            <button class="btn btn-accent">Log In</button>
+            <button class="btn btn-accent">Register</button>
           </div>
         </div>
       </form>
