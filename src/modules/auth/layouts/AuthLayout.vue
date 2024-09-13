@@ -1,12 +1,10 @@
 <script setup lang="ts">
-
-import Sidebar from '@/modules/common/layouts/Sidebar.vue';
 </script>
 
 <template>
   <div class="navbar bg-[#121621] fixed flex justify-between">
     <div>
-      <router-link :to="{name: 'home'}" class="btn btn-ghost text-xl font-extrabold">TODO<span class="font-normal">app</span></router-link>
+      <router-link :to="{name: 'welcome'}" class="btn btn-ghost text-xl font-extrabold">TODO<span class="font-normal">app</span></router-link>
     </div>
     <div class="space-x-8 px-4">
       <router-link :to="{name: 'login'}" class="text-md uppercase font-bold hover:underline hover:text-white">Log In</router-link>
