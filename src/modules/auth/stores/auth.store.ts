@@ -1,11 +1,20 @@
 import { defineStore } from 'pinia';
 import { computed, reactive, ref } from 'vue';
-import { useRouter } from 'vue-router';
 import { AuthStatus } from '@/modules/auth/interfaces/auth-status.enum';
 import { checkAuthAction, loginAction } from '@/modules/auth/actions';
 
+interface LoginParameters {
+  email: string;
+  password: string;
+}
+
+interface RegisterParameters {
+  name: string;
+  email: string;
+  password: string;
+}
+
 export const useAuthStore = defineStore('auth', () => {
-  const router = useRouter();
 
   const authStatus = ref(AuthStatus.Checking);
   const authenticated = ref(Boolean);
@@ -13,17 +22,6 @@ export const useAuthStore = defineStore('auth', () => {
 
   const LoginForm = reactive(<LoginParameters>{ email: '', password: '' });
   const RegisterForm = reactive(<RegisterParameters>{});
-
-  interface LoginParameters {
-    email: string;
-    password: string;
-  }
-
-  interface RegisterParameters {
-    name: string;
-    email: string;
-    password: string;
-  }
 
   const login = async (form: LoginParameters) => {
     try {
