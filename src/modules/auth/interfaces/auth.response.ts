@@ -7,3 +7,13 @@ export interface AuthResponse {
 export interface Data {
     token: string;
 }
+
+export interface AuthErrors {
+    errors: AuthError[];
+}
+
+export interface AuthError {
+    status: number;
+    message: string;
+    source: string;
+}
