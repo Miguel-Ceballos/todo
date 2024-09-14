@@ -6,6 +6,7 @@ import type { Task } from '@/modules/tasks/interfaces/task.interface';
 import { useModalStore } from '@/modules/common/stores/modal.store';
 import { useAlertStore } from '@/modules/common/stores/alert.store'
 import { useValidationErrorsStore } from '@/modules/common/stores/validation-errors.store';
+import type { Category } from '@/modules/categories/interfaces/category.interface';
 
 export const useTasksStore = defineStore('tasks', () => {
   const modalStore = useModalStore();
@@ -133,6 +134,33 @@ export const useTasksStore = defineStore('tasks', () => {
     alertStore.handleClickAlert('Task deleted successfully!');
   };
 
+  const isTaskDone = async (task: Task) => {
+    console.log(task);
+    const response = await todoApi.patch(`/tasks/${task.id}`, {
+      data: {
+        type: 'tasks',
+        attributes: {
+          status: 'C',
+        },
+        relationships: {
+          category: {
+            data: {
+              type: 'categories',
+              id: task.category.id,
+            },
+          },
+        },
+      },
+    });
+
+    if (response.status === 200) {
+      tasks.value = await getTasks();
+      alertStore.handleClickAlert('Category Completed successfully');
+    } else {
+      return;
+    }
+  };
+
   onMounted(async () => {
     tasks.value = await getTasks();
   });
@@ -143,6 +171,7 @@ export const useTasksStore = defineStore('tasks', () => {
     postTasks,
     updateTask,
     deleteTask,
+    isTaskDone,
     tasks,
   };
 });

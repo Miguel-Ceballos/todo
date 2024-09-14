@@ -31,16 +31,16 @@ const modalStore = useModalStore();
         v-if="tasksStore.tasks.length > 0"
         v-for="task in tasksStore.tasks"
         :key="task.id"
-        @click="modalStore.handleTaskModal(task, true)"
-        class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 py-2 rounded-t-md group transition-duration-200"
+        class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 py-2 rounded-t-md group transition-duration-200 flex gap-4 justify-center"
       >
-        <div class="flex w-full space-x-2">
-          <div class="mt-1">
-            <input
-              type="checkbox"
-              class="checkbox checkbox-primary rounded-full checkbox-sm hover:border-2"
-            />
-          </div>
+        <div class="mt-1">
+          <input
+            @click="tasksStore.isTaskDone(task)"
+            type="checkbox"
+            class="checkbox checkbox-primary rounded-full checkbox-sm hover:border-2 z-9999"
+          />
+        </div>
+        <div @click="modalStore.handleTaskModal(task, true)" class="flex w-full space-x-2">
           <div class="w-full overflow-hidden">
             <div class="flex flex-col">
               <h3
