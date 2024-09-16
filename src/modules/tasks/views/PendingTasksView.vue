@@ -2,20 +2,19 @@
 import CheckCircleIcon from '@/modules/common/icons/CheckCircleIcon.vue';
 import TaskForm from '@/modules/tasks/components/TaskForm.vue';
 import { useTasksStore } from '@/modules/tasks/store/tasks.store';
-import { onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
-import type { Task } from '@/modules/tasks/interfaces/task.interface'
+import { onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
+import type { Task } from '@/modules/tasks/interfaces/task.interface';
 
-const route = useRoute()
+const route = useRoute();
 
-const tasks = ref<Task[]>([])
+const tasks = ref<Task[]>([]);
 
 const tasksStore = useTasksStore();
 
 onMounted(async () => {
   tasks.value = await tasksStore.getCompletedTasks();
 });
-
 </script>
 
 <template>
@@ -30,19 +29,21 @@ onMounted(async () => {
     <div>
       <task-form />
     </div>
-    <ul>
+    <ul class="p-4 bg-[#121621] rounded-xl">
       <li
+        v-if="tasks.length > 0"
         v-for="task in tasks"
         :key="task.id"
-        class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 py-2 rounded-t-md group transition-duration-200"
+        class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 py-2 rounded-t-md group transition-duration-200 flex gap-4 justify-center"
       >
+        <div class="mt-1">
+          <input
+            checked
+            type="checkbox"
+            class="checkbox checkbox-primary rounded-full checkbox-sm hover:border-2"
+          />
+        </div>
         <div class="flex w-full space-x-2">
-          <div class="mt-1">
-            <input
-              type="checkbox"
-              class="checkbox checkbox-primary rounded-full checkbox-sm hover:border-2"
-            />
-          </div>
           <div class="w-full overflow-hidden">
             <div class="flex flex-col">
               <h3
@@ -58,6 +59,7 @@ onMounted(async () => {
           </div>
         </div>
       </li>
+      <li v-else class="text-center">There are no existing tasks.</li>
     </ul>
   </div>
 </template>
