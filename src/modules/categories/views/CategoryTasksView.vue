@@ -23,8 +23,9 @@ watch(() => route.params.id, async () => {
 })
 
 onMounted(async () => {
-  categoriesStore.category = await categoriesStore.getCategory(route.params.id);
-  categoriesStore.categoryTasks = await categoriesStore.getCategoryTasks(route.params.id);
+  categoriesStore.currentCategory = route.params.id;
+  categoriesStore.category = await categoriesStore.getCategory(categoriesStore.currentCategory);
+  categoriesStore.categoryTasks = await categoriesStore.getCategoryTasks(categoriesStore.currentCategory);
 });
 </script>
 
@@ -54,7 +55,7 @@ onMounted(async () => {
       >
           <div class="mt-1">
             <input
-              @click="tasksStore.isTaskDone(task)"
+              @click="categoriesStore.isTaskDone(task)"
               type="checkbox"
               class="checkbox checkbox-primary rounded-full checkbox-sm hover:border-2 z-9999"
             />

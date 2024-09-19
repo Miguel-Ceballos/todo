@@ -21,6 +21,7 @@ export const useCategoriesStore = defineStore('categories', () => {
   const categories = ref<Category[]>([]);
   const categoryTasks = ref([]);
   const category = ref(<Category>{});
+  const currentCategory = ref<string>('');
 
   const getCategories = async (): Promise<Category[]> => {
     const response = await todoApi.get<CategoriesListResponse>('/categories/');
@@ -116,6 +117,33 @@ export const useCategoriesStore = defineStore('categories', () => {
     alertStore.handleClickAlert('Category deleted successfully');
   };
 
+  const isTaskDone = async (task: Task) => {
+    console.log(task);
+    const response = await todoApi.patch(`/tasks/${task.id}`, {
+      data: {
+        type: 'tasks',
+        attributes: {
+          status: 'C',
+        },
+        relationships: {
+          category: {
+            data: {
+              type: 'categories',
+              id: task.category.id,
+            },
+          },
+        },
+      },
+    });
+
+    if (response.status === 200) {
+      categoryTasks.value = await getCategoryTasks(currentCategory.value);
+      alertStore.handleClickAlert('Task completed successfully');
+    } else {
+      return;
+    }
+  };
+
   async function getValues(id: string | RouteParamValue[]) {
     category.value = await getCategory(id);
     // @ts-ignore
@@ -130,11 +158,13 @@ export const useCategoriesStore = defineStore('categories', () => {
     category,
     categories,
     categoryTasks,
+    currentCategory,
     getValues,
     getCategory,
     postCategory,
     getCategoryTasks,
     updateCategory,
     deleteCategory,
+    isTaskDone,
   };
 });
