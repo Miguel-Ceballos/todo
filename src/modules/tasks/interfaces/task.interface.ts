@@ -17,5 +17,5 @@ export interface CategoryTask {
 
 export interface Category {
   id: number;
-  title: string;
+  title?: string;
 }

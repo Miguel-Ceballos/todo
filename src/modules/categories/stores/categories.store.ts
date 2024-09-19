@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue';
 import { todoApi } from '@/api/tasksApi';
 import type { Category } from '@/modules/categories/interfaces/category.interface';
 import type { CategoriesListResponse } from '@/modules/categories/interfaces/categories-list.response';
-import type { CategoryTask } from '@/modules/tasks/interfaces/task.interface';
+import type { CategoryTask, Task } from '@/modules/tasks/interfaces/task.interface';
 import type { TasksListResponse } from '@/modules/tasks/interfaces/tasks-list.response';
 import { type RouteParamValue, useRouter } from 'vue-router';
 import { useModalStore } from '@/modules/common/stores/modal.store';
@@ -43,7 +43,7 @@ export const useCategoriesStore = defineStore('categories', () => {
     };
   };
 
-  const getCategoryTasks = async (id: string | RouteParamValue[]): Promise<CategoryTask[]> => {
+  const getCategoryTasks = async (id: string | RouteParamValue[]): Promise<Task[]> => {
     const response = await todoApi.get<TasksListResponse>(`/categories/${id}/tasks?status=P,D`);
 
     return response.data.data.map((task) => {
@@ -52,6 +52,7 @@ export const useCategoriesStore = defineStore('categories', () => {
         title: task.attributes.title,
         description: task.attributes.description,
         status: task.attributes.status,
+        category: { id: task.relationships.category.data.id },
       };
     });
   };

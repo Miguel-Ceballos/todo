@@ -9,10 +9,12 @@ import { useModalStore } from '@/modules/common/stores/modal.store'
 import CategoryForm from '@/modules/categories/components/CategoryForm.vue'
 import AlertComponent from '@/modules/categories/components/AlertComponent.vue'
 import CategoryDropDownComponent from '@/modules/categories/components/CategoryDropDownComponent.vue';
+import { useTasksStore } from '@/modules/tasks/store/tasks.store';
 
 const route = useRoute();
 const categoriesStore = useCategoriesStore();
 const modalStore = useModalStore();
+const tasksStore = useTasksStore();
 
 //TODO: Buscar solución para solo ejecutar las peticiones una sola vez.
 
@@ -48,26 +50,27 @@ onMounted(async () => {
         v-if="categoriesStore.categoryTasks.length > 0"
         v-for="task in categoriesStore.categoryTasks"
         :key="task.id"
-        class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 py-4 rounded-t-md group transition-duration-200"
+        class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 pt-2 pb-6 rounded-t-md group transition-duration-200 flex gap-4 justify-center"
       >
-        <div class="flex w-full space-x-2">
           <div class="mt-1">
             <input
+              @click="tasksStore.isTaskDone(task)"
               type="checkbox"
-              class="checkbox checkbox-primary rounded-full checkbox-sm hover:border-2"
+              class="checkbox checkbox-primary rounded-full checkbox-sm hover:border-2 z-9999"
             />
           </div>
-          <div class="w-full overflow-hidden">
-            <div class="flex flex-col">
-              <h3
-                class="text-gray-200 text-sm mb-1 group-hover:text-accent group-hover:font-semibold"
-              >
-                {{ task.title }}
-              </h3>
-              <p class="truncate text-xs">{{ task.description }}</p>
+          <div @click="modalStore.handleTaskModal(task, true)" class="flex w-full space-x-2">
+            <div class="w-full overflow-hidden">
+              <div class="flex flex-col">
+                <h3
+                  class="text-gray-200 text-sm mb-1 group-hover:text-accent group-hover:font-semibold"
+                >
+                  {{ task.title }}
+                </h3>
+                <p class="truncate text-xs">{{ task.description }}</p>
+              </div>
             </div>
           </div>
-        </div>
       </li>
       <li v-else class="text-center">There are no existing tasks.</li>
     </ul>
