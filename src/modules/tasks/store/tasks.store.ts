@@ -6,7 +6,6 @@ import type { Task } from '@/modules/tasks/interfaces/task.interface';
 import { useModalStore } from '@/modules/common/stores/modal.store';
 import { useAlertStore } from '@/modules/common/stores/alert.store'
 import { useValidationErrorsStore } from '@/modules/common/stores/validation-errors.store';
-import type { Category } from '@/modules/categories/interfaces/category.interface';
 
 export const useTasksStore = defineStore('tasks', () => {
   const modalStore = useModalStore();
@@ -18,24 +17,6 @@ export const useTasksStore = defineStore('tasks', () => {
   const getTasks = async (): Promise<Task[]> => {
     try {
       const response = await todoApi.get<TasksListResponse>('/tasks?status=P,D&include=category');
-
-      return response.data.data.map((task) => {
-        return {
-          id: task.id,
-          title: task.attributes.title,
-          description: task.attributes.description,
-          status: task.attributes.status,
-          category: { id: task.includes.id, title: task.includes.attributes.title },
-        };
-      });
-    } catch (e) {
-      throw 'Unexpected error.';
-    }
-  };
-
-  const getCompletedTasks = async (): Promise<Task[]> => {
-    try {
-      const response = await todoApi.get<TasksListResponse>('/tasks?status=C&include=category');
 
       return response.data.data.map((task) => {
         return {
@@ -167,7 +148,6 @@ export const useTasksStore = defineStore('tasks', () => {
 
   return {
     getTasks,
-    getCompletedTasks,
     postTasks,
     updateTask,
     deleteTask,
