@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { todoApi } from '@/modules/tasks/api/tasksApi';
+import { todoApi } from '@/api/tasksApi';
 import { onMounted, ref } from 'vue';
 import type { TasksListResponse } from '@/modules/tasks/interfaces/tasks-list.response';
 import type { Task } from '@/modules/tasks/interfaces/task.interface';

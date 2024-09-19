@@ -28,7 +28,7 @@ const router = createRouter({
         {
           path: 'completed',
           name: 'completed-tasks',
-          component: () => import('@/modules/tasks/views/PendingTasksView.vue'),
+          component: () => import('@/modules/tasks/views/CompletedTasksView.vue'),
         },
       ],
     },

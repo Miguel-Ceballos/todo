@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { onMounted, ref } from 'vue';
-import { todoApi } from '@/modules/tasks/api/tasksApi';
+import { todoApi } from '@/api/tasksApi';
 import type { Category } from '@/modules/categories/interfaces/category.interface';
 import type { CategoriesListResponse } from '@/modules/categories/interfaces/categories-list.response';
 import type { CategoryTask } from '@/modules/tasks/interfaces/task.interface';

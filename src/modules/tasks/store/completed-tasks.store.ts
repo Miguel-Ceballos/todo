@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { computed, onMounted, ref } from 'vue';
 import type { Task } from '@/modules/tasks/interfaces/task.interface';
-import { todoApi } from '@/modules/tasks/api/tasksApi';
+import { todoApi } from '@/api/tasksApi';
 import type { TasksListResponse } from '@/modules/tasks/interfaces/tasks-list.response';
 
 

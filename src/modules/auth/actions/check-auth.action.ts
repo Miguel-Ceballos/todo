@@ -1,4 +1,4 @@
-import { authApi, todoApi } from '@/modules/tasks/api/tasksApi';
+import { authApi, todoApi } from '@/api/tasksApi';
 import { isAxiosError } from 'axios';
 
 export const checkAuthAction = async () => {

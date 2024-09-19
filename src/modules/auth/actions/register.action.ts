@@ -1,4 +1,4 @@
-import { authApi } from '@/modules/tasks/api/tasksApi';
+import { authApi } from '@/api/tasksApi';
 import type { AuthErrors, AuthResponse } from '@/modules/auth/interfaces/auth.response';
 import { isAxiosError } from 'axios';
 import type { RegisterParameters } from '@/modules/auth/stores/auth.store';
