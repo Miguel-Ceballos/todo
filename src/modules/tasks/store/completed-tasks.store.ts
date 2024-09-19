@@ -60,11 +60,6 @@ export const useCompletedTasksStore = defineStore('completedTasks', () => {
     //   return;
     // }
 
-
-  onMounted(async () => {
-    completedTasks.value = await getCompletedTasks();
-  });
-
   return {
     completedTasks,
     getCompletedTasks,

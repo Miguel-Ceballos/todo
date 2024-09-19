@@ -2,8 +2,13 @@
 import CheckCircleIcon from '@/modules/common/icons/CheckCircleIcon.vue';
 import TaskForm from '@/modules/tasks/components/TaskForm.vue';
 import { useCompletedTasksStore } from '@/modules/tasks/store/completed-tasks.store';
+import { onMounted } from 'vue';
 
 const completedTasksStore = useCompletedTasksStore();
+
+onMounted(async () => {
+  completedTasksStore.completedTasks = await completedTasksStore.getCompletedTasks();
+});
 
 </script>
 
