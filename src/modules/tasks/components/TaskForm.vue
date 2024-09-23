@@ -6,12 +6,19 @@ import { useModalStore } from '@/modules/common/stores/modal.store';
 import { useTaskFormStore } from '@/modules/tasks/store/task-form.store';
 import TrashIcon from '@/modules/common/icons/TrashIcon.vue'
 import { useValidationErrorsStore } from '@/modules/common/stores/validation-errors.store';
+import { onMounted } from 'vue';
 
 const categoryStore = useCategoriesStore();
 const tasksStore = useTasksStore();
 const modalStore = useModalStore();
 const taskFormStore = useTaskFormStore();
 const errorsStore = useValidationErrorsStore();
+
+interface Props {
+  categoryId?: number;
+}
+
+const props = defineProps<Props>();
 
 const handleSubmit = async () => {
   if (modalStore.isUpdate === true) {
@@ -20,6 +27,13 @@ const handleSubmit = async () => {
     await tasksStore.postTasks(taskFormStore.form);
   }
 };
+
+onMounted(async () => {
+  if (props.categoryId) {
+    taskFormStore.form.category.id = props.categoryId;
+    console.log({ categoryId: props.categoryId, category: taskFormStore.form.category.id });
+  }
+});
 </script>
 
 <template>

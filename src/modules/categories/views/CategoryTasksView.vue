@@ -2,7 +2,7 @@
 import CheckCircleIcon from '@/modules/common/icons/CheckCircleIcon.vue';
 import TaskForm from '@/modules/tasks/components/TaskForm.vue';
 import { useCategoriesStore } from '@/modules/categories/stores/categories.store';
-import { onMounted, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import CreateButton from '@/modules/common/components/CreateButton.vue'
 import { useModalStore } from '@/modules/common/stores/modal.store'
@@ -20,9 +20,13 @@ const tasksStore = useTasksStore();
 
 watch(() => route.params.id, async () => {
   await categoriesStore.getValues(route.params.id);
+  categoryId.value = +route.params.id;
 })
 
+const categoryId = ref<number>();
+
 onMounted(async () => {
+  categoryId.value = +route.params.id;
   categoriesStore.currentCategory = route.params.id;
   categoriesStore.category = await categoriesStore.getCategory(categoriesStore.currentCategory);
   categoriesStore.categoryTasks = await categoriesStore.getCategoryTasks(categoriesStore.currentCategory);
@@ -40,7 +44,7 @@ onMounted(async () => {
       </h2>
       <div class="flex gap-2">
         <create-button @click="modalStore.handleTaskModal(null, false)" text="New Task" />
-        <task-form v-if="modalStore.isTaskModal"/>
+        <task-form v-if="modalStore.isTaskModal" :category-id="categoryId"/>
       </div>
     </div>
     <div>
