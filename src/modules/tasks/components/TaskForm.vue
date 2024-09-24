@@ -6,13 +6,15 @@ import { useModalStore } from '@/modules/common/stores/modal.store';
 import { useTaskFormStore } from '@/modules/tasks/store/task-form.store';
 import TrashIcon from '@/modules/common/icons/TrashIcon.vue'
 import { useValidationErrorsStore } from '@/modules/common/stores/validation-errors.store';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const categoryStore = useCategoriesStore();
 const tasksStore = useTasksStore();
 const modalStore = useModalStore();
 const taskFormStore = useTaskFormStore();
 const errorsStore = useValidationErrorsStore();
+
+const isDisabled = ref(false)
 
 interface Props {
   categoryId?: number;
@@ -24,12 +26,20 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const handleSubmit = async () => {
-  if (modalStore.isUpdate === true) {
+  disabledButton();
+  if (modalStore.isUpdate) {
     await tasksStore.updateTask(taskFormStore.form, props.isTaskByCategory);
   } else {
     await tasksStore.postTasks(taskFormStore.form, props.isTaskByCategory);
   }
 };
+
+const disabledButton = () => {
+  setTimeout(() => {
+    isDisabled.value = true
+  }, 2000)
+  isDisabled.value = false
+}
 
 onMounted(async () => {
   if (props.categoryId) {

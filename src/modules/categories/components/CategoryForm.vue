@@ -5,19 +5,30 @@ import Modal from '@/modules/common/components/Modal.vue'
 import { useCategoryFormStore } from '@/modules/categories/stores/category-form.store'
 import { useModalStore } from '@/modules/common/stores/modal.store'
 import { useValidationErrorsStore } from '@/modules/common/stores/validation-errors.store';
+import { ref } from 'vue';
 
 const categoryStore = useCategoriesStore()
 const modalStore = useModalStore()
 const categoryFormStore = useCategoryFormStore()
 const errorsStore = useValidationErrorsStore()
 
+const isDisabled = ref(false)
+
 const handleSubmit = async () => {
-  if (modalStore.isUpdate === true) {
+  disabledButton();
+  if (modalStore.isUpdate) {
     await categoryStore.updateCategory(categoryFormStore.form);
   } else {
     await categoryStore.postCategory(categoryFormStore.form);
   }
 };
+
+const disabledButton = () => {
+  setTimeout(() => {
+    isDisabled.value = true
+  }, 2000)
+  isDisabled.value = false
+}
 
 </script>
 
@@ -47,7 +58,7 @@ const handleSubmit = async () => {
           <button type="button" class="btn btn-neutral" @click="modalStore.handleCategoryModal()">
             Close
           </button>
-          <button class="btn btn-accent">{{ modalStore.isUpdate ? 'Update' : 'Save' }}</button>
+          <button id="create" name="create" class="btn btn-accent" :disabled="isDisabled">{{ modalStore.isUpdate ? 'Update' : 'Save' }}</button>
         </div>
       </div>
     </template>
