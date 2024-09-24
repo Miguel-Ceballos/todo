@@ -85,7 +85,7 @@ export const useTasksStore = defineStore('tasks', () => {
     }
   };
 
-  const updateTask = async (form: Task) => {
+  const updateTask = async (form: Task, isTaskByCategory: boolean = false) => {
     const response = await todoApi.patch(`/tasks/${form.id}`, {
       data: {
         type: 'tasks',
@@ -112,7 +112,11 @@ export const useTasksStore = defineStore('tasks', () => {
     }
 
     if (response.status === 200) {
-      tasks.value = await getTasks();
+      if (isTaskByCategory) {
+        categoryTasks.value = await getCategoryTasks(currentCategory.value);
+      } else {
+        tasks.value = await getTasks();
+      }
       modalStore.handleTaskModal();
     }
 

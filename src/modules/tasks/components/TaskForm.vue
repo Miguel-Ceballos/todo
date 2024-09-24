@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const handleSubmit = async () => {
   if (modalStore.isUpdate === true) {
-    await tasksStore.updateTask(taskFormStore.form);
+    await tasksStore.updateTask(taskFormStore.form, props.isTaskByCategory);
   } else {
     await tasksStore.postTasks(taskFormStore.form, props.isTaskByCategory);
   }
