@@ -11,10 +11,18 @@ import UserIcon from '@/modules/common/icons/UserIcon.vue';
 import UserPlusIcon from '@/modules/common/icons/UserPlusIcon.vue';
 import LogOutIcon from '@/modules/common/icons/LogOutIcon.vue';
 import { useAuthStore } from '@/modules/auth/stores/auth.store';
+import { useRoute } from 'vue-router';
+import { watch } from 'vue';
 
 const categories = useCategoriesStore();
 const modalStore = useModalStore();
 const authStore = useAuthStore();
+
+const route = useRoute();
+
+watch(() => route.path, () => {
+  console.log(route.path)
+})
 </script>
 
 <template>
@@ -25,29 +33,37 @@ const authStore = useAuthStore();
       </h2>
     </div>
     <ul class="menu">
-      <li class="hover:bg-zincs-800 hover:rounded-md group">
+      <li class="hover:bg-[#212531] hover:rounded-md group">
         <create-button text="New" />
       </li>
-      <li class="hover:bg-zincs-800 hover:rounded-md">
-        <router-link :to="{ name: 'home' }" class="text-gray-400 hover:text-gray-100">
+      <li class="hover:bg-[#212531] hover:rounded-md">
+        <router-link
+          :to="{ name: 'home' }"
+          :class="route.path === '/tasks/all' ? 'bg-[#212531] ' : ''"
+          class="text-gray-400 hover:text-gray-100"
+        >
           <list-bullet-icon />
           Tasks
         </router-link>
       </li>
-      <li class="hover:bg-zincs-800 hover:rounded-md">
+      <li class="hover:bg-[#212531] hover:rounded-md">
         <a class="text-gray-400 hover:text-gray-100">
           <calendar-icon />
           Today
         </a>
       </li>
-      <li class="hover:bg-zincs-800 hover:rounded-md">
+      <li class="hover:bg-[#212531] hover:rounded-md">
         <a class="text-gray-400 hover:text-gray-100">
           <calendar-days-icon />
           Upcoming
         </a>
       </li>
-      <li class="hover:bg-zincs-800 hover:rounded-md">
-        <router-link :to="{ name: 'completed-tasks' }" class="text-gray-400 hover:text-gray-100">
+      <li class="hover:bg-[#212531] hover:rounded-md">
+        <router-link
+          :to="{ name: 'completed-tasks' }"
+          :class="route.path === '/tasks/completed' ? 'bg-[#212531] ' : ''"
+          class="text-gray-400 hover:text-gray-100"
+        >
           <check-circle-icon />
           Completed
         </router-link>
@@ -55,17 +71,18 @@ const authStore = useAuthStore();
     </ul>
     <ul class="menu">
       <li class="menu-title"><a>Categories</a></li>
-      <li class="hover:bg-zincs-800 hover:rounded-md group">
+      <li class="hover:bg-[#212531] hover:rounded-md group">
         <create-button @click="modalStore.handleCategoryModal(null, false)" text="New Category" />
       </li>
       <li
         v-if="categories.categories.length > 0"
         v-for="category in categories.categories"
-        class="hover:bg-zincs-800 hover:rounded-md"
+        class="hover:bg-[#212531] hover:rounded-md"
       >
         <router-link
           :to="{ name: 'category-tasks', params: { id: category.id } }"
           class="text-gray-400 hover:text-gray-100"
+          :class="route.path === `/tasks/${category.id}` ? 'bg-[#212531] ' : ''"
         >
           <hashtag-icon />
           {{ category.title }}
@@ -74,7 +91,7 @@ const authStore = useAuthStore();
       <li v-else class="text-center">There are no existing categories</li>
     </ul>
     <ul class="menu fixed bottom-0 min-w-72">
-      <li @click="authStore.logout()" class="hover:bg-zincs-800 hover:rounded-md">
+      <li @click="authStore.logout()" class="hover:bg-[#212531] hover:rounded-md">
         <button class="text-gray-400 hover:text-gray-100">
           <log-out-icon />
           Log Out
