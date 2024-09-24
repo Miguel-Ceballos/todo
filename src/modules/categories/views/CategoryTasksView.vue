@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import TaskForm from '@/modules/tasks/components/TaskForm.vue';
 import { useCategoriesStore } from '@/modules/categories/stores/categories.store';
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import CreateButton from '@/modules/common/components/CreateButton.vue'
 import { useModalStore } from '@/modules/common/stores/modal.store'
@@ -18,17 +18,22 @@ const tasksStore = useTasksStore();
 //TODO: Buscar solución para solo ejecutar las peticiones una sola vez.
 
 watch(() => route.params.id, async () => {
-  tasksStore.categoryTasks = await tasksStore.getCategoryTasks(route.params.id);
+  tasksStore.currentCategory = route.params.id;
+  tasksStore.categoryTasks = await tasksStore.getCategoryTasks(tasksStore.currentCategory);
   categoryId.value = +route.params.id;
 })
 
 const categoryId = ref<number>();
 
 onMounted(async () => {
-  categoryId.value = +route.params.id;
   tasksStore.currentCategory = route.params.id;
-  categoriesStore.category = await categoriesStore.getCategory(tasksStore.currentCategory);
   tasksStore.categoryTasks = await tasksStore.getCategoryTasks(tasksStore.currentCategory);
+  categoryId.value = +route.params.id;
+});
+
+onUnmounted(() => {
+  categoriesStore.category = {title: 'Tasks', id: 0};
+  tasksStore.categoryTasks = [];
 });
 </script>
 

@@ -7,14 +7,16 @@ import { useModalStore } from '@/modules/common/stores/modal.store';
 import { useAlertStore } from '@/modules/common/stores/alert.store'
 import { useValidationErrorsStore } from '@/modules/common/stores/validation-errors.store';
 import type { RouteParamValue } from 'vue-router';
+import { useCategoriesStore } from '@/modules/categories/stores/categories.store';
 
 export const useTasksStore = defineStore('tasks', () => {
   const modalStore = useModalStore();
   const alertStore = useAlertStore();
   const errorsStore = useValidationErrorsStore();
+  const categoryStore = useCategoriesStore();
 
   const tasks = ref<Task[]>([]);
-  const categoryTasks = ref([]);
+  const categoryTasks = ref<Task[]>([]);
   const currentCategory = ref<string>('');
 
   const getTasks = async (): Promise<Task[]> => {
@@ -36,9 +38,15 @@ export const useTasksStore = defineStore('tasks', () => {
   };
 
   const getCategoryTasks = async (id: string | RouteParamValue[]): Promise<Task[]> => {
-    const response = await todoApi.get<TasksListResponse>(`/categories/${id}/tasks?status=P,D`);
+    const response = await todoApi.get<TasksListResponse>(`/categories/${id}?include=tasks`);
 
-    return response.data.data.map((task) => {
+    categoryStore.category = {
+      id: response.data.data[0].id,
+      title: response.data.data[0].attributes.title,
+      slug: response.data.data[0].attributes.slug,
+    };
+
+    return response.data.data[0].includes.map((task) => {
       return {
         id: task.id,
         title: task.attributes.title,
@@ -47,6 +55,15 @@ export const useTasksStore = defineStore('tasks', () => {
         category: { id: task.relationships.category.data.id },
       };
     });
+    // return response.data.data.map((task) => {
+    //   return {
+    //     id: task.id,
+    //     title: task.attributes.title,
+    //     description: task.attributes.description,
+    //     status: task.attributes.status,
+    //     category: { id: task.relationships.category.data.id },
+    //   };
+    // });
   };
 
   const postTasks = async (form: Task, isTaskByCategory: boolean = false) => {

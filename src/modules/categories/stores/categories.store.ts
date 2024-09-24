@@ -18,8 +18,7 @@ export const useCategoriesStore = defineStore('categories', () => {
 
   const categories = ref<Category[]>([]);
 
-  const category = ref(<Category>{});
-  const currentCategory = ref<string>('');
+  const category = ref<Category>({ slug: '', title: '', id: 0 });
 
   const getCategories = async (): Promise<Category[]> => {
     const response = await todoApi.get<CategoriesListResponse>('/categories/');
@@ -36,9 +35,9 @@ export const useCategoriesStore = defineStore('categories', () => {
   const getCategory = async (id: string | RouteParamValue[]) => {
     const response = await todoApi.get(`/categories/${id}`);
     return {
-      id: response.data.data.id,
-      title: response.data.data.attributes.title,
-      slug: response.data.data.attributes.slug,
+      id: response.data.data[0].id,
+      title: response.data.data[0].attributes.title,
+      slug: response.data.data[0].attributes.slug,
     };
   };
 
