@@ -52,7 +52,7 @@ onMounted(async () => {
 <template>
   <modal
     :open="modalStore.isTaskModal"
-    title="New Task"
+    :title="modalStore.isUpdate ? 'Update Task' : 'New Task'"
     @handle-click-modal="modalStore.handleTaskModal"
     @handle-submit="handleSubmit"
   >

@@ -41,7 +41,7 @@ onUnmounted(() => {
   <alert-component />
   <category-form v-if="modalStore.isCategoryModal"  />
   <div class="space-y-6">
-    <div class="flex space-x-4 justify-between items-end px-4">
+    <div class="flex space-x-4 justify-between items-end px-1 md:px-4">
       <h2 class="text-2xl text-gray-300 md:text-3xl font-bold flex items-center gap-4">
         {{categoriesStore.category.title}}
         <category-drop-down-component  :category="categoriesStore.category"/>
@@ -54,12 +54,12 @@ onUnmounted(() => {
     <div>
 
     </div>
-    <ul class="p-4 bg-[#121621] rounded-xl">
+    <ul class="p-2 md:p-4 bg-[#121621] rounded-xl">
       <li
         v-if="tasksStore.categoryTasks.length > 0"
         v-for="task in tasksStore.categoryTasks"
         :key="task.id"
-        class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 pt-2 pb-6 rounded-t-md group transition-duration-200 flex gap-4 justify-center"
+        class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] sm:px-1 py-3 rounded-t-md group transition-duration-200 flex gap-2 md:gap-4"
       >
           <div class="mt-1">
             <input
@@ -68,7 +68,7 @@ onUnmounted(() => {
               class="checkbox checkbox-primary rounded-full checkbox-sm hover:border-2 z-9999"
             />
           </div>
-          <div @click="modalStore.handleTaskModal(task, true)" class="flex w-full space-x-2">
+          <div @click="modalStore.handleTaskModal(task, true)" class="flex w-full">
             <div class="w-full overflow-hidden">
               <div class="flex flex-col">
                 <h3
@@ -76,7 +76,7 @@ onUnmounted(() => {
                 >
                   {{ task.title }}
                 </h3>
-                <p class="truncate text-xs">{{ task.description }}</p>
+                <p class="truncate text-xs" :class="task.description ? 'pr-7 lg:pr-0' : ''">{{ task.description }}</p>
               </div>
             </div>
           </div>

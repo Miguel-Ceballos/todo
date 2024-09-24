@@ -27,6 +27,7 @@ watch(() => route.path, () => {
 
 <template>
   <div class="fixed min-w-72">
+<!--  <div class="">-->
     <div class="space-y-4 my-4">
       <h2 class="text-xl font-bold text-center text-purple-500">
         <router-link to="/">TODOApp</router-link>

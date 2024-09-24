@@ -15,23 +15,21 @@ const modalStore = useModalStore();
   <alert-component />
   <category-form v-if="modalStore.isCategoryModal" />
   <div class="space-y-6">
-    <div class="flex space-x-4 justify-between items-end px-4">
+    <div class="flex space-x-4 justify-between items-end px-1 md:px-4">
       <h2 class="text-2xl text-gray-300 md:text-3xl font-extrabold">
         Tasks
-        <span class="font-normal text-lg text-gray-500"> · ({{ tasksStore.tasks.length }})</span>
       </h2>
       <div class="flex gap-2">
         <create-button @click="modalStore.handleTaskModal(null, false)" text="New Task" />
         <task-form v-if="modalStore.isTaskModal" />
       </div>
     </div>
-    <div></div>
-    <ul class="p-4 bg-[#121621] rounded-xl">
+    <ul class="p-2 md:p-4 bg-[#121621] rounded-xl">
       <li
         v-if="tasksStore.tasks.length > 0"
         v-for="task in tasksStore.tasks"
         :key="task.id"
-        class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 py-2 rounded-t-md group transition-duration-200 flex gap-4 justify-center"
+        class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] sm:px-1 py-2 rounded-t-md group transition-duration-200 flex gap-2 md:gap-4"
       >
         <div class="mt-1">
           <input
@@ -40,7 +38,7 @@ const modalStore = useModalStore();
             class="checkbox checkbox-primary rounded-full checkbox-sm hover:border-2 z-9999"
           />
         </div>
-        <div @click="modalStore.handleTaskModal(task, true)" class="flex w-full space-x-2">
+        <div @click="modalStore.handleTaskModal(task, true)" class="flex w-full">
           <div class="w-full overflow-hidden">
             <div class="flex flex-col">
               <h3
@@ -48,10 +46,10 @@ const modalStore = useModalStore();
               >
                 {{ task.title }}
               </h3>
-              <p class="truncate text-xs">{{ task.description }}</p>
+              <p class="truncate text-xs" :class="task.description ? 'pr-7 lg:pr-0' : ''">{{ task.description }}</p>
             </div>
-            <div class="flex justify-end">
-              <button class="btn btn-ghost btn-xs justify-end">#{{ task.category.title }}</button>
+            <div class="pt-1">
+              <p class="text-xs font-bold text-gray-500">#{{ task.category.title }}</p>
             </div>
           </div>
         </div>
