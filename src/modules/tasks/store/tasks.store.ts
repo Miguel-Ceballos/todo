@@ -6,6 +6,7 @@ import type { Task } from '@/modules/tasks/interfaces/task.interface';
 import { useModalStore } from '@/modules/common/stores/modal.store';
 import { useAlertStore } from '@/modules/common/stores/alert.store'
 import { useValidationErrorsStore } from '@/modules/common/stores/validation-errors.store';
+import type { RouteParamValue } from 'vue-router';
 
 export const useTasksStore = defineStore('tasks', () => {
   const modalStore = useModalStore();
@@ -13,6 +14,8 @@ export const useTasksStore = defineStore('tasks', () => {
   const errorsStore = useValidationErrorsStore();
 
   const tasks = ref<Task[]>([]);
+  const categoryTasks = ref([]);
+  const currentCategory = ref<string>('');
 
   const getTasks = async (): Promise<Task[]> => {
     try {
@@ -32,7 +35,21 @@ export const useTasksStore = defineStore('tasks', () => {
     }
   };
 
-  const postTasks = async (form: Task) => {
+  const getCategoryTasks = async (id: string | RouteParamValue[]): Promise<Task[]> => {
+    const response = await todoApi.get<TasksListResponse>(`/categories/${id}/tasks?status=P,D`);
+
+    return response.data.data.map((task) => {
+      return {
+        id: task.id,
+        title: task.attributes.title,
+        description: task.attributes.description,
+        status: task.attributes.status,
+        category: { id: task.relationships.category.data.id },
+      };
+    });
+  };
+
+  const postTasks = async (form: Task, isTaskByCategory: boolean = false) => {
     const response = await todoApi.post('/tasks', {
       data: {
         type: 'tasks',
@@ -58,7 +75,11 @@ export const useTasksStore = defineStore('tasks', () => {
     }
 
     if (response.status === 201) {
-      tasks.value = await getTasks();
+      if (isTaskByCategory) {
+        categoryTasks.value = await getCategoryTasks(currentCategory.value);
+      } else {
+        tasks.value = await getTasks();
+      }
       modalStore.handleTaskModal();
       alertStore.handleClickAlert('Task created successfully!');
     }
@@ -115,7 +136,7 @@ export const useTasksStore = defineStore('tasks', () => {
     alertStore.handleClickAlert('Task deleted successfully!');
   };
 
-  const isTaskDone = async (task: Task) => {
+  const isTaskDone = async (task: Task, isTaskByCategory: boolean = false) => {
     console.log(task);
     const response = await todoApi.patch(`/tasks/${task.id}`, {
       data: {
@@ -135,7 +156,12 @@ export const useTasksStore = defineStore('tasks', () => {
     });
 
     if (response.status === 200) {
-      tasks.value = await getTasks();
+      if (isTaskByCategory) {
+        categoryTasks.value = await getCategoryTasks(currentCategory.value);
+      } else {
+        tasks.value = await getTasks();
+      }
+      categoryTasks.value = await getCategoryTasks(currentCategory.value);
       alertStore.handleClickAlert('Category Completed successfully');
     } else {
       return;
@@ -152,6 +178,9 @@ export const useTasksStore = defineStore('tasks', () => {
     updateTask,
     deleteTask,
     isTaskDone,
+    getCategoryTasks,
     tasks,
+    categoryTasks,
+    currentCategory,
   };
 });

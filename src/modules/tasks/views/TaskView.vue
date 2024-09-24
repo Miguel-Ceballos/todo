@@ -35,7 +35,7 @@ const modalStore = useModalStore();
       >
         <div class="mt-1">
           <input
-            @click="tasksStore.isTaskDone(task)"
+            @click="tasksStore.isTaskDone(task, false)"
             type="checkbox"
             class="checkbox checkbox-primary rounded-full checkbox-sm hover:border-2 z-9999"
           />

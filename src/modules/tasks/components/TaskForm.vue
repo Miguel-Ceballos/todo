@@ -16,15 +16,18 @@ const errorsStore = useValidationErrorsStore();
 
 interface Props {
   categoryId?: number;
+  isTaskByCategory?: boolean;
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  isTaskByCategory: false,
+});
 
 const handleSubmit = async () => {
   if (modalStore.isUpdate === true) {
     await tasksStore.updateTask(taskFormStore.form);
   } else {
-    await tasksStore.postTasks(taskFormStore.form);
+    await tasksStore.postTasks(taskFormStore.form, props.isTaskByCategory);
   }
 };
 

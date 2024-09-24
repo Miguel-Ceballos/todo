@@ -3,8 +3,6 @@ import { onMounted, ref } from 'vue';
 import { todoApi } from '@/api/tasksApi';
 import type { Category } from '@/modules/categories/interfaces/category.interface';
 import type { CategoriesListResponse } from '@/modules/categories/interfaces/categories-list.response';
-import type { CategoryTask, Task } from '@/modules/tasks/interfaces/task.interface';
-import type { TasksListResponse } from '@/modules/tasks/interfaces/tasks-list.response';
 import { type RouteParamValue, useRouter } from 'vue-router';
 import { useModalStore } from '@/modules/common/stores/modal.store';
 import { useAlertStore } from '@/modules/common/stores/alert.store';
@@ -19,7 +17,7 @@ export const useCategoriesStore = defineStore('categories', () => {
   const router = useRouter();
 
   const categories = ref<Category[]>([]);
-  const categoryTasks = ref([]);
+
   const category = ref(<Category>{});
   const currentCategory = ref<string>('');
 
@@ -42,20 +40,6 @@ export const useCategoriesStore = defineStore('categories', () => {
       title: response.data.data.attributes.title,
       slug: response.data.data.attributes.slug,
     };
-  };
-
-  const getCategoryTasks = async (id: string | RouteParamValue[]): Promise<Task[]> => {
-    const response = await todoApi.get<TasksListResponse>(`/categories/${id}/tasks?status=P,D`);
-
-    return response.data.data.map((task) => {
-      return {
-        id: task.id,
-        title: task.attributes.title,
-        description: task.attributes.description,
-        status: task.attributes.status,
-        category: { id: task.relationships.category.data.id },
-      };
-    });
   };
 
   const postCategory = async (form: Category) => {
@@ -117,39 +101,6 @@ export const useCategoriesStore = defineStore('categories', () => {
     alertStore.handleClickAlert('Category deleted successfully');
   };
 
-  const isTaskDone = async (task: Task) => {
-    console.log(task);
-    const response = await todoApi.patch(`/tasks/${task.id}`, {
-      data: {
-        type: 'tasks',
-        attributes: {
-          status: 'C',
-        },
-        relationships: {
-          category: {
-            data: {
-              type: 'categories',
-              id: task.category.id,
-            },
-          },
-        },
-      },
-    });
-
-    if (response.status === 200) {
-      categoryTasks.value = await getCategoryTasks(currentCategory.value);
-      alertStore.handleClickAlert('Task completed successfully');
-    } else {
-      return;
-    }
-  };
-
-  async function getValues(id: string | RouteParamValue[]) {
-    category.value = await getCategory(id);
-    // @ts-ignore
-    categoryTasks.value = await getCategoryTasks(id);
-  }
-
   onMounted(async () => {
     categories.value = await getCategories();
   });
@@ -157,14 +108,9 @@ export const useCategoriesStore = defineStore('categories', () => {
   return {
     category,
     categories,
-    categoryTasks,
-    currentCategory,
-    getValues,
     getCategory,
     postCategory,
-    getCategoryTasks,
     updateCategory,
     deleteCategory,
-    isTaskDone,
   };
 });

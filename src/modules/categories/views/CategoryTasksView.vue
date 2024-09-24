@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import CheckCircleIcon from '@/modules/common/icons/CheckCircleIcon.vue';
 import TaskForm from '@/modules/tasks/components/TaskForm.vue';
 import { useCategoriesStore } from '@/modules/categories/stores/categories.store';
 import { onMounted, ref, watch } from 'vue';
@@ -19,7 +18,7 @@ const tasksStore = useTasksStore();
 //TODO: Buscar solución para solo ejecutar las peticiones una sola vez.
 
 watch(() => route.params.id, async () => {
-  await categoriesStore.getValues(route.params.id);
+  tasksStore.categoryTasks = await tasksStore.getCategoryTasks(route.params.id);
   categoryId.value = +route.params.id;
 })
 
@@ -27,15 +26,15 @@ const categoryId = ref<number>();
 
 onMounted(async () => {
   categoryId.value = +route.params.id;
-  categoriesStore.currentCategory = route.params.id;
-  categoriesStore.category = await categoriesStore.getCategory(categoriesStore.currentCategory);
-  categoriesStore.categoryTasks = await categoriesStore.getCategoryTasks(categoriesStore.currentCategory);
+  tasksStore.currentCategory = route.params.id;
+  categoriesStore.category = await categoriesStore.getCategory(tasksStore.currentCategory);
+  tasksStore.categoryTasks = await tasksStore.getCategoryTasks(tasksStore.currentCategory);
 });
 </script>
 
 <template>
   <alert-component />
-  <category-form v-if="modalStore.isCategoryModal" />
+  <category-form v-if="modalStore.isCategoryModal"  />
   <div class="space-y-6">
     <div class="flex space-x-4 justify-between items-end px-4">
       <h2 class="text-2xl text-gray-300 md:text-3xl font-bold flex items-center gap-4">
@@ -44,7 +43,7 @@ onMounted(async () => {
       </h2>
       <div class="flex gap-2">
         <create-button @click="modalStore.handleTaskModal(null, false)" text="New Task" />
-        <task-form v-if="modalStore.isTaskModal" :category-id="categoryId"/>
+        <task-form v-if="modalStore.isTaskModal" :category-id="categoryId" :is-task-by-category="true"/>
       </div>
     </div>
     <div>
@@ -52,14 +51,14 @@ onMounted(async () => {
     </div>
     <ul class="p-4 bg-[#121621] rounded-xl">
       <li
-        v-if="categoriesStore.categoryTasks.length > 0"
-        v-for="task in categoriesStore.categoryTasks"
+        v-if="tasksStore.categoryTasks.length > 0"
+        v-for="task in tasksStore.categoryTasks"
         :key="task.id"
         class="border-b hover:scale-[1.003] border-gray-800 hover:cursor-pointer hover:dark:bg-[#1E2330] px-1 pt-2 pb-6 rounded-t-md group transition-duration-200 flex gap-4 justify-center"
       >
           <div class="mt-1">
             <input
-              @click="categoriesStore.isTaskDone(task)"
+              @click="tasksStore.isTaskDone(task, true)"
               type="checkbox"
               class="checkbox checkbox-primary rounded-full checkbox-sm hover:border-2 z-9999"
             />
