@@ -26,13 +26,7 @@ watch(() => route.path, () => {
 </script>
 
 <template>
-  <div class="fixed min-w-72">
-<!--  <div class="">-->
-    <div class="space-y-4 my-4">
-      <h2 class="text-xl font-bold text-center text-purple-500">
-        <router-link to="/">TODOApp</router-link>
-      </h2>
-    </div>
+  <div>
     <ul class="menu">
       <li class="hover:bg-[#212531] hover:rounded-md group">
         <create-button text="New" />

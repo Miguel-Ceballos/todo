@@ -65,7 +65,7 @@ onUnmounted(() => {
             <input
               @click="tasksStore.isTaskDone(task, true)"
               type="checkbox"
-              class="checkbox checkbox-primary rounded-full checkbox-sm hover:border-2 z-9999"
+              class="checkbox checkbox-primary rounded-full checkbox-sm hover:border-2"
             />
           </div>
           <div @click="modalStore.handleTaskModal(task, true)" class="flex w-full">
