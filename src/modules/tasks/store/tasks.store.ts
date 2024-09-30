@@ -16,6 +16,7 @@ export const useTasksStore = defineStore('tasks', () => {
   const categoryStore = useCategoriesStore();
 
   const tasks = ref<Task[]>([]);
+  const todayTasks = ref<Task[]>([]);
   const categoryTasks = ref<Task[]>([]);
   const currentCategory = ref<string>('');
 
@@ -29,6 +30,7 @@ export const useTasksStore = defineStore('tasks', () => {
           title: task.attributes.title,
           description: task.attributes.description,
           status: task.attributes.status,
+          due_date: task.attributes.due_date,
           category: { id: task.includes.id, title: task.includes.attributes.title },
         };
       });
@@ -67,6 +69,7 @@ export const useTasksStore = defineStore('tasks', () => {
   };
 
   const postTasks = async (form: Task, isTaskByCategory: boolean = false) => {
+    console.log(form.due_date);
     const response = await todoApi.post('/tasks', {
       data: {
         type: 'tasks',
@@ -74,6 +77,7 @@ export const useTasksStore = defineStore('tasks', () => {
           title: form.title,
           description: form.description,
           status: form.status,
+          due_date: form.due_date
         },
         relationships: {
           category: {
@@ -85,7 +89,7 @@ export const useTasksStore = defineStore('tasks', () => {
         },
       },
     });
-
+    // 2024-09-29
     if (response.data.errors) {
       errorsStore.getErrors(response);
       return;
@@ -110,6 +114,7 @@ export const useTasksStore = defineStore('tasks', () => {
           title: form.title,
           description: form.description,
           status: form.status,
+          due_date: form.due_date,
         },
         relationships: {
           category: {

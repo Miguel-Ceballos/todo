@@ -42,6 +42,7 @@ const disabledButton = () => {
 }
 
 onMounted(async () => {
+  console.log(taskFormStore.form);
   if (props.categoryId) {
     taskFormStore.form.category.id = props.categoryId;
     console.log({ categoryId: props.categoryId, category: taskFormStore.form.category.id });
@@ -97,6 +98,16 @@ onMounted(async () => {
           </option>
         </select>
         <p v-if="errorsStore?.errors['data.relationships.category.data.id']" class="text-red-600 text-xs font-semibold">{{ errorsStore.errors['data.relationships.category.data.id'] }}</p>
+      </div>
+
+      <div class="space-y-1">
+        <span class="label-text">Due date</span>
+        <input
+          type="date"
+          class="input input-bordered input-accent w-full"
+          v-model="taskFormStore.form.due_date"
+        />
+        <p v-if="errorsStore?.errors['data.attributes.due_date']" class="text-red-600 text-xs font-semibold">{{ errorsStore.errors['data.attributes.due_date'] }}</p>
       </div>
     </template>
 

@@ -5,6 +5,7 @@ export interface Task {
   title: string;
   description: string;
   status: Status;
+  due_date: Date;
   category: Category;
 }
 
@@ -13,6 +14,7 @@ export interface CategoryTask {
   title: string;
   description: string;
   status: Status;
+  due_date: Date;
 }
 
 export interface Category {
