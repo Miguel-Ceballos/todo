@@ -42,10 +42,14 @@ watch(() => route.path, () => {
         </router-link>
       </li>
       <li class="hover:bg-[#212531] hover:rounded-md">
-        <a class="text-gray-400 hover:text-gray-100">
+        <router-link
+          :to="{ name: 'today-tasks' }"
+          :class="route.path === '/tasks/today' ? 'bg-[#212531] ' : ''"
+          class="text-gray-400 hover:text-gray-100"
+        >
           <calendar-icon />
           Today
-        </a>
+        </router-link>
       </li>
       <li class="hover:bg-[#212531] hover:rounded-md">
         <a class="text-gray-400 hover:text-gray-100">

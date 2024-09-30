@@ -30,6 +30,11 @@ const router = createRouter({
           name: 'completed-tasks',
           component: () => import('@/modules/tasks/views/CompletedTasksView.vue'),
         },
+        {
+          path: 'today',
+          name: 'today-tasks',
+          component: () => import('@/modules/tasks/views/TodayTasksView.vue'),
+        }
       ],
     },
     // Auth Routes
