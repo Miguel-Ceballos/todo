@@ -2,14 +2,14 @@ import { todoApi } from '@/api/tasksApi';
 import { isAxiosError } from 'axios';
 import type { Category } from '@/modules/tasks/interfaces/task.interface';
 import type {
-  PostCategoryErrorResponse,
+  Error,
   ResponseError,
   SuccessPostCategoryResponse,
 } from '@/modules/categories/interfaces/categories-list.response';
 
 export const postCategoryAction = async (
   form: Category,
-): Promise<SuccessPostCategoryResponse | PostCategoryErrorResponse | ResponseError> => {
+): Promise<SuccessPostCategoryResponse | ResponseError | Error[]> => {
   try {
     return await todoApi.post(`/categories/`, {
       data: {
